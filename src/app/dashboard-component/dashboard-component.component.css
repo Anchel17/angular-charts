@@ -1,0 +1,39 @@
+.seleciona-temporada{
+  display: flex;
+  justify-content: center;
+  padding-top: 2rem;
+  width: 100%;
+}
+
+.line-chart{
+  width: 30%;
+}
+
+.pie-chart{
+  width: 30%;
+  text-align: center;
+  font-weight: 500;
+  padding: 1rem 0;
+}
+
+.pie-chart .mat-mdc-card-content{
+  margin: auto;
+  padding: .5rem 0;
+  width: 75%;
+}
+
+.pie-chart .mat-mdc-card-content span{
+  margin: 1rem 0;
+}
+
+.graficos-container{
+  height: 100%;
+}
+
+.cards-container{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  width: 100%;
+}

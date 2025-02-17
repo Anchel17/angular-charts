@@ -8,6 +8,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MenuComponentComponent } from './menu-component/menu-component.component';
 import { DashboardComponentComponent } from './dashboard-component/dashboard-component.component';
 import { AppRoutingModule } from './app-routing.module';
+import { NgChartsModule } from 'ng2-charts';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
 
 
 @NgModule({
@@ -21,7 +26,12 @@ import { AppRoutingModule } from './app-routing.module';
     BrowserAnimationsModule,
     MatCardModule,
     MatButtonModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgChartsModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    FormsModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]
