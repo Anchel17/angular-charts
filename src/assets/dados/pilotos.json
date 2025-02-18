@@ -1,0 +1,127 @@
+{
+  "leclerc": {
+    "temporadas": [2018, 2019, 2020, 2021, 2022, 2023, 2024],
+    "resultados":{
+      "temporada1": [13, 12, 19, 6, 10, null, 10, 10, 9, null, 15, null, null, 11, 9, 7, null, null, 7, 7, 7],
+      "temporada2": [5, 3, 5, 5, 5, null, 3, 3, 2, 3, null, 4, 1, 1, 2, 3, 6, 4, 4, null, 3],
+      "temporada3": [2, null, 11, 3, 4, null, 14, null, 8, 6, 7, 4, 5, 4, 10, null, 13],
+      "temporada4": [6, 4, 6, 4, null, 4, 16, 7, 8, 2, null, 8, 5, 4, 15, 4, 4, 5, 5, 8, 7, 10],
+      "temporada5": [1, 2, 1, 6, 2, null, 4, null, 5, 4, 1, null, 6, 6, 3, 2, 2, 3, 3, 6, 4, 2],
+      "temporada6": [null, 7, null, 3, 7, 6, 11, 4, 2, 9, 7, 3, null, 4, 4, 4, 5, null, 3, null, 2, 2],
+      "temporada7": [4, 3, 2, 4, 4, 3, 3, 1, null, 5, 11, 14, 4, 3, 3, 1, 2, 5, 1, 3, 5, 4, 2, 3]
+    },
+    "posicaoEmClassificacao":{
+      "temporada1": [18, 19, 19, 13, 14, 14, 13, 8, 17, 9, 9, 16, 12, 15, 13, 7, 10, 9, 9, 7, 8],
+      "temporada2": [5, 1, 4, 8, 5, 15, 3, 3, 1, 3, 10, 4, 1, 1, 1, 1, 2, 1, 4, 14, 3],
+      "temporada3": [7, 14, 6, 4, 8, 9, 13, 13, 5, 10, 4, 4, 7, 12, 12, 4, 12],
+      "temporada4": [4, 4, 8, 4, 1, 7, 7, 12, 4, 7, 9, 5, 5, 19, 3, 4, 8, 6, 13, 4, 7],
+      "temporada5": [1, 2, 1, 2, 1, 1, 1, 1, 19, 3, 2, 1, 3, 15, 2, 1, 1, 2, 12, 7, 5, 3],
+      "temporada6": [3, 12, 7, 1, 7, 6, 19, 10, 2, 4, 6, 1, 9, 3, 3, 4, 5, 1, 1, 1, 2],
+      "temporada7": [2, 2, 4, 8, 6, 2, 3, 1, 11, 5, 6, 11, 6, 1, 6, 4, 1, 9, 4, 4, 6, 4, 5, 19]
+    },
+    "podiosPorTemporada": {
+      "temporada1": 0,
+      "temporada2": 10,
+      "temporada3": 2,
+      "temporada4": 1,
+      "temporada5": 11,
+      "temporada6": 6,
+      "temporada7": 13
+    },
+    "pontosPorTemporada":{
+      "temporada1": 39,
+      "temporada2": 264,
+      "temporada3": 98,
+      "temporada4": 159,
+      "temporada5": 305,
+      "temporada6": 206,
+      "temporada7": 353
+    }
+  },
+  "verstappen": {
+    "temporadas": [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024],
+    "resultados":{
+      "temporada1": [null, 7, 17, null, 11, null, 15, 8, null, 4, 8, 12, 8, 9, 10, 4, 9, 9, 16],
+      "temporada2": [10, 6, 8, null, 1, null, 4, 8, 2, 2, 5, 3, 11, 7, 6, 2, 2, null, 4, 3, 5],
+      "temporada3": [5, 3, null,5, null, 5, null, null, null, 4, 5, null, 10, null, 1, 2, 4, 1, 5, 5],
+      "temporada4": [6, null, 5, null, 3, 9, 3, 2, 1, 15, 4, null, 3, 5, 2, 5, 3, 2, 1, 2, 3],
+      "temporada5": [3, 4, 4, 4, 3, 4, 5, 4, 1, 5, 1, 2, null, 8, 3, 4, null, 6, 3, 1, 2],
+      "temporada6": [null, 3, 2, 2, 1, 2, 3, null, null, 2, 2, 3, null, 6, 2, null, 1],
+      "temporada7": [2, 1, 2, 2, 1, 18, 1, 1, 1, null, 9, 1, 1, null, 2, 2, 1, 1, 2, 2, 2, 1],
+      "temporada8": [19, 1, null, 11, 1, 1, 3, 1, 1, 7, 21, 1, 1, 1, 1, 1, 7, 1, 1, 1, 6, 1],
+      "temporada9": [1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 5, 1, 1, 1, 1, 1, 1],
+      "temporada10": [1, 1, null, 1, 1, 2, 1, 6, 1, 1, 5, 2, 5, 4, 2, 6, 5, 2, 3, 6, 1, 5, 1, 6]
+    },
+    "posicaoEmClassificacao":{
+      "temporada1": [12, 6, 13, 15, 6, 10, 12, 7, 13, 9, 15, null, 8, 15],
+      "temporada2": [5, 10, 9, 9, 4, null, 5, 9, 9, 3, 4, 4, 2, 7, 4, 3, 5, 4, 3, 4, 6],
+      "temporada3": [5, 19, 6, 7, 5, 4, 5, 5, 6, 5, 5, 2, 2, 3, 5, 6, 2, 4, 6],
+      "temporada4": [4, 15, 5, 5, 5, 3, 4, 5, 5, 4, 7, 7, 5, 2, 11, 3, 15, 2, 5, 6],
+      "temporada5": [4, 5, 5, 4, 4, 3, 11, 4, 3, 4, 2, 1, 5, 4, 4, 5, 3, 1, 1, 3],
+      "temporada6": [3, 2, 7, 3, 4, 3, 3, 5, 3, 2, 3, 3, 3, 2, 3, 3, 1],
+      "temporada7": [1, 3, 3, 2, 2, 3, 1, 1, 1, 2, 3, 1, 1, 3, 20, 3, 1, 3, 2, 2, 3, 1],
+      "temporada8": [2, 4, 2, 1, 3, 2, 4, 3, 1, 2, 1, 2, 10, 1, 1, 2, 8, 1, 3, 1, 2, 1],
+      "temporada9": [1, 15, 1, 2, 9, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 11, 1, 1, 6, 3, 1, 3, 1],
+      "temporada10": [1, 1, 1, 1, 1, 1, 1, 6, 2, 2, 1, 4, 3, 1, 2, 7, 6, 2, 2, 2, 12, 5, 1, 5, 1]
+    },
+    "podiosPorTemporada": {
+      "temporada1": 0,
+      "temporada2": 7,
+      "temporada3": 4,
+      "temporada4": 11,
+      "temporada5": 9,
+      "temporada6": 11,
+      "temporada7": 18,
+      "temporada8": 17,
+      "temporada9": 21,
+      "temporada10": 14
+    },
+    "pontosPorTemporada":{
+      "temporada1": 49,
+      "temporada2": 204,
+      "temporada3": 168,
+      "temporada4": 249,
+      "temporada5": 278,
+      "temporada6": 214,
+      "temporada7": 395.5,
+      "temporada8": 454,
+      "temporada9": 575,
+      "temporada10": 437
+    }
+  },
+  "norris": {
+    "temporadas": [2019, 2020, 2021, 2022, 2023, 2024],
+    "resultados":{
+      "temporada1": [12, 6, 18, 8, null, 11, null, 9, 6, 11, null, 9, 11, 10, 7, 8, 11, null, 7, 8, 8],
+      "temporada2": [3, 5, 13, 5, 9, 10, 7, 4, 6, 15, null, 13, 8, 8, 4, 10, 5],
+      "temporada3": [4, 3, 8, 5, 5, 5, 5, 3, 4, null, 14, 10, 2, 7, 7, 8, 10, 10, 9, 10, 3, 7],
+      "temporada4": [15, 7, 5, null, 3, 8, 6, 9, 15, 6, 7, 7, 7, 12, 7, 7, 4, 10, 6, 9, null, 6],
+      "temporada5": [17, 17, 6, 9, 17, 9, 17, 13, 4, 2, 2, 7, 7, 8, 2, 2, 3, 2, 5, 2, null, 5],
+      "temporada6": [6, 8, 3, 5, 2, 2, 1, 4, 2, 2, 20, 3, 2, 5, 1, 3, 4, 1, 4, 2, 6, 6, 10, 1]
+    },
+    "posicaoEmClassificacao":{
+      "temporada1": [8, 10, 15, 7, 11, 12, 8, 5, 6, 8, 16, 7, 12, 14, 10, 8, 8, 8, 8, 11, 7],
+      "temporada2": [4, 6, 8, 5, 10, 8, 10, 6, 11, 8, 8, 8, 9, 11, 9, 15, 4],
+      "temporada3": [7, 7, 7, 9, 5, 6, 8, 4, 2, 6, 6, 10, 13, 4, 1, 8, 8, 10, 8, 6, 7, 3],
+      "temporada4": [13, 11, 4, 3, 8, 11, 5, 11, 14, 6, 15, 5, 4, 10, 7, 7, 6, 10, 8, 8, 4, 7],
+      "temporada5": [11, 19, 13, 7, 16, 10, 3, 7, 4, 2, 3, 7, 2, 9, 4, 3, 10, 2, 19, 7, 16, 5],
+      "temporada6": [7, 6, 4, 3, 4, 5, 3, 4, 3, 1, 2, 3, 1, 5, 1, 17, 1, 1, 3, 1, 6, 3, 1]
+    },
+    "podiosPorTemporada": {
+      "temporada1": 0,
+      "temporada2": 1,
+      "temporada3": 4,
+      "temporada4": 1,
+      "temporada5": 7,
+      "temporada6": 13
+    },
+    "pontosPorTemporada":{
+      "temporada1": 49,
+      "temporada2": 97,
+      "temporada3": 160,
+      "temporada4": 122,
+      "temporada5": 205,
+      "temporada6": 374
+    }
+  }
+}

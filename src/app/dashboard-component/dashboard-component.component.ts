@@ -11,7 +11,7 @@ import { count } from 'rxjs';
 })
 export class DashboardComponentComponent {
   private nomeDoPiloto: String = '';
-  anos: string[] =['2020', '2021', '2022', '2023', '2024'];
+  anos: string[] =['2024', '2023', '2022', '2021', '2020'];
 
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
@@ -96,7 +96,7 @@ export class DashboardComponentComponent {
   public podiosPorTemporada: ChartConfiguration['data'] = {
     datasets: [
       {
-        label: 'Pódios 2024',
+        label: 'Pódios por temporada',
         data: [
           1, 2, 3, 4, 5
         ],
