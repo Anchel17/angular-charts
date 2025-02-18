@@ -25,6 +25,10 @@ export class DashboardComponentComponent {
     2020, 2021, 2022, 2023, 2024
   ]
 
+  public labelsZonaDeClassificacao = [
+    'Q1', 'Q2', 'Q3'
+  ]
+
   public lineChartType: ChartType = 'line';
   public pieChartType: ChartType = 'pie';
 
@@ -41,7 +45,7 @@ export class DashboardComponentComponent {
     },
   };
 
-  public pieChartOptions: ChartConfiguration['options'] = {
+  public resultadosEmTemporadaChartOptions: ChartConfiguration['options'] = {
     plugins: {
       legend: {
         display: false,
@@ -66,6 +70,29 @@ export class DashboardComponentComponent {
     labels: this.labelsResultadosEmTemporada
   }
 
+  public zonasDeClassificacaoChartOptions: ChartConfiguration['options'] = {
+    plugins: {
+      legend: {
+        display: true,
+        position: 'left',
+      },
+    },
+  };
+
+  public zonasDeClassificacao: ChartConfiguration['data'] = {
+    datasets: [
+      {
+        label: 'resultados 2024',
+        data: [
+          1, 2, 3
+        ],
+        fill: 'origin',
+        pointHoverBorderColor: 'rgba(148,159,177,0.8)',
+      }
+    ],
+    labels: this.labelsZonaDeClassificacao
+  }
+
   public podiosPorTemporada: ChartConfiguration['data'] = {
     datasets: [
       {
@@ -80,7 +107,7 @@ export class DashboardComponentComponent {
     labels: this.labelsTemporada
   }
 
-  public dnfsPorTemporada: ChartConfiguration['data'] = {
+  public pontosPorTemporada: ChartConfiguration['data'] = {
     datasets: [
       {
         label: 'Pontos por temporada',

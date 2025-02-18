@@ -33,7 +33,7 @@
       <mat-card-content>
         <canvas baseChart
         [type]="lineChartType"
-        [data]="dnfsPorTemporada"
+        [data]="pontosPorTemporada"
         [options]="lineChartOptions">
         </canvas>
       </mat-card-content>
@@ -45,7 +45,18 @@
         <canvas baseChart
         [type]="pieChartType"
         [data]="resultadosEmTemporada"
-        [options]="pieChartOptions">
+        [options]="resultadosEmTemporadaChartOptions">
+        </canvas>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="pie-chart">
+      <span>Zonas de classificação 2024</span>
+      <mat-card-content>
+        <canvas baseChart
+        [type]="pieChartType"
+        [data]="zonasDeClassificacao"
+        [options]="zonasDeClassificacaoChartOptions">
         </canvas>
       </mat-card-content>
     </mat-card>
