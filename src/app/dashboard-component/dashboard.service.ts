@@ -1,0 +1,39 @@
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { PilotoDTO } from "../models/PilotoDTO";
+import { map, Observable } from "rxjs";
+
+@Injectable()
+export class DashboardService{
+  private path = '../assets/dados/{nomeDoPiloto}.json'
+
+  constructor(private httpClient: HttpClient){}
+
+  public getAnosCompetidos(nomeDoPiloto: string): Observable<string[]>{
+    this.path = this.replaceStringNomeDoPiloto(nomeDoPiloto);
+    return this.httpClient.get<PilotoDTO>(this.path).pipe(
+      map(piloto => piloto.temporadas)
+    );
+  }
+
+  public getGpsDisputados(nomeDoPiloto: string): Observable<number>{
+    this.path = this.replaceStringNomeDoPiloto(nomeDoPiloto);
+
+    return this.httpClient.get<PilotoDTO>(this.path).pipe(
+      map(piloto => piloto.gpsDisputados)
+    );
+  }
+
+  public getResultadosEmTemporadaSelecionada(nomeDoPiloto: string, indiceTemporada: number): Observable<number[]>{
+    this.path = this.replaceStringNomeDoPiloto(nomeDoPiloto);
+
+    return this.httpClient.get<PilotoDTO>(this.path).pipe(
+      map(piloto => piloto.resultados[indiceTemporada])
+    );
+  }
+
+  private replaceStringNomeDoPiloto(nomeDoPiloto: string): string{
+    return this.path.replace("{nomeDoPiloto}", nomeDoPiloto);
+  }
+
+}

@@ -1,29 +1,25 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Chart, ChartConfiguration, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
-import { count } from 'rxjs';
+import { count, map } from 'rxjs';
+import { DashboardService } from './dashboard.service';
 
 @Component({
   selector: 'app-dashboard-component',
   templateUrl: './dashboard-component.component.html',
-  styleUrls: ['./dashboard-component.component.css']
+  styleUrls: ['./dashboard-component.component.css'],
+  providers: [ DashboardService ]
 })
 export class DashboardComponentComponent {
-  private nomeDoPiloto: String = '';
-  anos: string[] =['2024', '2023', '2022', '2021', '2020'];
+  private nomeDoPiloto: string = '';
+  public temporadaSelecionada: string = '';
+  anos: string[] =[];
+  gpsDisputados: number = 0;
 
-  @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
+  @ViewChildren(BaseChartDirective) charts?: QueryList<BaseChartDirective>;
 
-  public labelsResultadosEmTemporada = [
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-    11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-    21, 22, 23, 24
-  ]
-
-  public labelsTemporada = [
-    2020, 2021, 2022, 2023, 2024
-  ]
+  public labelsTemporada: string[] = []
 
   public labelsZonaDeClassificacao = [
     'Q1', 'Q2', 'Q3'
@@ -58,16 +54,24 @@ export class DashboardComponentComponent {
     datasets: [
       {
         label: 'resultados 2024',
-        data: [
-          1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-          11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-          1, 2, 3, 4
-        ],
+        data: [],
         fill: 'origin',
         pointHoverBorderColor: 'rgba(148,159,177,0.8)',
       }
     ],
-    labels: this.labelsResultadosEmTemporada
+    labels: []
+  }
+
+  public resultadosEmTemporadaPie: ChartConfiguration['data'] ={
+    datasets: [
+      {
+        label: 'resultados 2024',
+        data: [],
+        fill: 'origin',
+        pointHoverBorderColor: 'rgba(148,159,177,0.8)',
+      }
+    ],
+    labels: []
   }
 
   public zonasDeClassificacaoChartOptions: ChartConfiguration['options'] = {
@@ -82,10 +86,8 @@ export class DashboardComponentComponent {
   public zonasDeClassificacao: ChartConfiguration['data'] = {
     datasets: [
       {
-        label: 'resultados 2024',
-        data: [
-          1, 2, 3
-        ],
+        label: 'zonas de classificação 2024',
+        data: [],
         fill: 'origin',
         pointHoverBorderColor: 'rgba(148,159,177,0.8)',
       }
@@ -97,37 +99,73 @@ export class DashboardComponentComponent {
     datasets: [
       {
         label: 'Pódios por temporada',
-        data: [
-          1, 2, 3, 4, 5
-        ],
+        data: [],
         fill: 'origin',
         pointHoverBorderColor: 'rgba(148,159,177,0.8)',
       }
     ],
-    labels: this.labelsTemporada
+    labels: []
   }
 
   public pontosPorTemporada: ChartConfiguration['data'] = {
     datasets: [
       {
         label: 'Pontos por temporada',
-        data: [
-          1, 2, 3, 4, 5
-        ],
+        data: [],
         fill: 'origin',
         pointHoverBorderColor: 'rgba(148,159,177,0.8)',
       }
     ],
-    labels: this.labelsTemporada
+    labels: []
   }
 
-  constructor(private activatedRoute: ActivatedRoute){}
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private dashboardService: DashboardService
+  ){}
 
   ngOnInit(){
     this.activatedRoute.queryParams.subscribe(params => {
       this.nomeDoPiloto = params['nomeDoPiloto'];
     })
 
-    this.chart?.update();
+    this.setGpsDisputados();
+    this.getAnosCompetidos();
+
+
+    this.charts?.forEach(chart => chart.update());
+  }
+
+  private setGpsDisputados(){
+    this.dashboardService.getGpsDisputados(this.nomeDoPiloto).subscribe(numGpsDisputados =>{
+      this.gpsDisputados = numGpsDisputados;
+    })
+  }
+
+  private getAnosCompetidos(): void{
+    this.dashboardService.getAnosCompetidos(this.nomeDoPiloto).subscribe(anosArr =>{
+      this.anos = anosArr
+      this.podiosPorTemporada.labels = [...anosArr];
+      this.pontosPorTemporada.labels = [...anosArr];
+      this.temporadaSelecionada = anosArr[anosArr.length - 1];
+
+      this.getResultadosEmTemporada();
+      this.charts?.forEach(chart => chart.update());
+    });
+
+  }
+
+  private getResultadosEmTemporada(): void{
+    let indiceTemporada = this.anos.findIndex(ano => ano == this.temporadaSelecionada);
+
+    this.dashboardService.getResultadosEmTemporadaSelecionada(this.nomeDoPiloto, indiceTemporada)
+      .subscribe(resultados => {
+        this.resultadosEmTemporada.labels = Array.from({length: resultados.length}, (_, i) => (i+1).toString())
+        this.resultadosEmTemporada.datasets[0].data = resultados
+        this.resultadosEmTemporadaPie.datasets[0].data = resultados
+
+        this.charts?.forEach(chart => chart.update());
+      });
+
   }
 }

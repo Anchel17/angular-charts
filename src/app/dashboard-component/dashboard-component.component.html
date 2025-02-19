@@ -1,7 +1,7 @@
 <div class="seleciona-temporada">
   <mat-form-field>
     <mat-label>Temporada</mat-label>
-    <mat-select>
+    <mat-select [(value)]="temporadaSelecionada">
       <mat-option *ngFor="let ano of anos" [value]="ano">{{ano}}</mat-option>
     </mat-select>
   </mat-form-field>
@@ -44,7 +44,7 @@
       <mat-card-content>
         <canvas baseChart
         [type]="pieChartType"
-        [data]="resultadosEmTemporada"
+        [data]="resultadosEmTemporadaPie"
         [options]="resultadosEmTemporadaChartOptions">
         </canvas>
       </mat-card-content>
