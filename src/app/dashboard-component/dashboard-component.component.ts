@@ -50,6 +50,20 @@ export class DashboardComponentComponent {
     },
   };
 
+  public resultadosEmTemporadaPieChartOptions: ChartConfiguration['options'] = {
+    plugins: {
+      legend: {
+        display: true,
+        position: 'bottom',
+        labels: {
+          filter: (legendItem, data) => {
+            return true
+          }
+        }
+      }
+    },
+  };
+
   public resultadosEmTemporada: ChartConfiguration['data'] = {
     datasets: [
       {
@@ -65,7 +79,7 @@ export class DashboardComponentComponent {
   public resultadosEmTemporadaPie: ChartConfiguration['data'] ={
     datasets: [
       {
-        label: 'resultados 2024',
+        label: 'Chegadas na posição: ',
         data: [],
         fill: 'origin',
         pointHoverBorderColor: 'rgba(148,159,177,0.8)',
@@ -162,7 +176,14 @@ export class DashboardComponentComponent {
       .subscribe(resultados => {
         this.resultadosEmTemporada.labels = Array.from({length: resultados.length}, (_, i) => (i+1).toString())
         this.resultadosEmTemporada.datasets[0].data = resultados
-        this.resultadosEmTemporadaPie.datasets[0].data = resultados
+        let contagemResultados: number[] = [];
+
+        resultados.forEach(resultado => {
+          contagemResultados[resultado] = (contagemResultados[resultado] || 0) + 1;
+        });
+
+        this.resultadosEmTemporadaPie.labels = Array.from(contagemResultados.keys());
+        this.resultadosEmTemporadaPie.datasets[0].data = contagemResultados;
 
         this.charts?.forEach(chart => chart.update());
       });
