@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { PilotoDTO } from "../models/PilotoDTO";
 import { map, Observable } from "rxjs";
 import { ResultadosEmTemporadaDTO } from "../models/ResultadosEmTemporadaDTO";
+import { ResultadosEmCarreiraDTO } from "../models/ResultadosEmCarreiraDTO";
 
 @Injectable()
 export class DashboardService{
@@ -35,6 +36,21 @@ export class DashboardService{
         return resultadosEmTemporadaDTO = {
           posicoesEmCorrida: piloto.resultados[indiceTemporada],
           posicoesEmClassificacao: piloto.posicaoEmClassificacao[indiceTemporada]
+        }
+      })
+    );
+  }
+
+  public getResultadosEmCarreira(nomeDoPiloto: string){
+    this.path = this.replaceStringNomeDoPiloto(nomeDoPiloto);
+
+    let resultadosEmCarreiraDTO: ResultadosEmCarreiraDTO;
+
+    return this.httpClient.get<PilotoDTO>(this.path).pipe(
+      map(piloto => {
+        return resultadosEmCarreiraDTO = {
+          podiosPorTemporada: piloto.podiosPorTemporada,
+          pontosPorTemporada: piloto.pontosPorTemporada
         }
       })
     );

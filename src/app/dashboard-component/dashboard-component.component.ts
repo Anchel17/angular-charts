@@ -92,7 +92,7 @@ export class DashboardComponentComponent {
     plugins: {
       legend: {
         display: true,
-        position: 'left',
+        position: 'bottom',
       },
     },
   };
@@ -144,8 +144,7 @@ export class DashboardComponentComponent {
     })
 
     this.setGpsDisputados();
-    this.getAnosCompetidos();
-
+    this.getDadosParaGraficos();
 
     this.charts?.forEach(chart => chart.update());
   }
@@ -156,7 +155,7 @@ export class DashboardComponentComponent {
     })
   }
 
-  private getAnosCompetidos(): void{
+  private getDadosParaGraficos(): void{
     this.dashboardService.getAnosCompetidos(this.nomeDoPiloto).subscribe(anosArr =>{
       this.anos = anosArr
       this.podiosPorTemporada.labels = [...anosArr];
@@ -164,6 +163,8 @@ export class DashboardComponentComponent {
       this.temporadaSelecionada = anosArr[anosArr.length - 1];
 
       this.getResultadosEmTemporada();
+      this.getResultadosEmCarreira();
+
       this.charts?.forEach(chart => chart.update());
     });
 
@@ -185,15 +186,21 @@ export class DashboardComponentComponent {
 
         contagemResultadosEmClassificacao = this.contarZonasDeClassificacao(resultados.posicoesEmClassificacao);
 
-
         this.resultadosEmTemporadaPie.labels = Array.from(contagemResultadosEmCorrida.keys());
         this.resultadosEmTemporadaPie.datasets[0].data = contagemResultadosEmCorrida;
-        console.log(contagemResultadosEmClassificacao)
         this.zonasDeClassificacao.datasets[0].data = contagemResultadosEmClassificacao;
 
         this.charts?.forEach(chart => chart.update());
       });
+  }
 
+  private getResultadosEmCarreira(): void{
+    this.dashboardService.getResultadosEmCarreira(this.nomeDoPiloto).subscribe(resultados =>{
+      this.podiosPorTemporada.datasets[0].data = resultados.podiosPorTemporada;
+      this.pontosPorTemporada.datasets[0].data = resultados.pontosPorTemporada;
+
+      this.charts?.forEach(chart => chart.update());
+    })
   }
 
   private contarZonasDeClassificacao(posicoesEmClassificacao: number[]){
