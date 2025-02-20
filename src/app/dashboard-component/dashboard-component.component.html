@@ -1,7 +1,7 @@
 <div class="seleciona-temporada">
   <mat-form-field>
     <mat-label>Temporada</mat-label>
-    <mat-select [(value)]="temporadaSelecionada">
+    <mat-select [(value)]="temporadaSelecionada" (selectionChange)="mudarTemporada($event)">
       <mat-option *ngFor="let ano of anos" [value]="ano">{{ano}}</mat-option>
     </mat-select>
   </mat-form-field>

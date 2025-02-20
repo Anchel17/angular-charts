@@ -4,6 +4,7 @@ import { Chart, ChartConfiguration, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { count, map } from 'rxjs';
 import { DashboardService } from './dashboard.service';
+import { MatSelectChange } from '@angular/material/select';
 
 @Component({
   selector: 'app-dashboard-component',
@@ -160,7 +161,7 @@ export class DashboardComponentComponent {
       this.anos = anosArr
       this.podiosPorTemporada.labels = [...anosArr];
       this.pontosPorTemporada.labels = [...anosArr];
-      this.temporadaSelecionada = anosArr[anosArr.length - 1];
+      this.temporadaSelecionada = this.temporadaSelecionada ? this.temporadaSelecionada : anosArr[anosArr.length - 1];
 
       this.getResultadosEmTemporada();
       this.getResultadosEmCarreira();
@@ -225,5 +226,13 @@ export class DashboardComponentComponent {
     });
 
     return [q1, q2, q3];
+  }
+
+  public mudarTemporada(selectChange: MatSelectChange){
+    this.temporadaSelecionada = selectChange.value;
+
+    this.getDadosParaGraficos();
+
+    // this.charts?.forEach(chart => chart.update());
   }
 }
