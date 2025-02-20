@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { PilotoDTO } from "../models/PilotoDTO";
 import { map, Observable } from "rxjs";
+import { ResultadosEmTemporadaDTO } from "../models/ResultadosEmTemporadaDTO";
 
 @Injectable()
 export class DashboardService{
@@ -24,11 +25,18 @@ export class DashboardService{
     );
   }
 
-  public getResultadosEmTemporadaSelecionada(nomeDoPiloto: string, indiceTemporada: number): Observable<number[]>{
+  public getResultadosEmTemporadaSelecionada(nomeDoPiloto: string, indiceTemporada: number): Observable<ResultadosEmTemporadaDTO>{
     this.path = this.replaceStringNomeDoPiloto(nomeDoPiloto);
 
+    let resultadosEmTemporadaDTO: ResultadosEmTemporadaDTO;
+
     return this.httpClient.get<PilotoDTO>(this.path).pipe(
-      map(piloto => piloto.resultados[indiceTemporada])
+      map(piloto => {
+        return resultadosEmTemporadaDTO = {
+          posicoesEmCorrida: piloto.resultados[indiceTemporada],
+          posicoesEmClassificacao: piloto.posicaoEmClassificacao[indiceTemporada]
+        }
+      })
     );
   }
 

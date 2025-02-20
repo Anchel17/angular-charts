@@ -174,19 +174,49 @@ export class DashboardComponentComponent {
 
     this.dashboardService.getResultadosEmTemporadaSelecionada(this.nomeDoPiloto, indiceTemporada)
       .subscribe(resultados => {
-        this.resultadosEmTemporada.labels = Array.from({length: resultados.length}, (_, i) => (i+1).toString())
-        this.resultadosEmTemporada.datasets[0].data = resultados
-        let contagemResultados: number[] = [];
+        this.resultadosEmTemporada.labels = Array.from({length: resultados.posicoesEmCorrida.length}, (_, i) => (i+1).toString())
+        this.resultadosEmTemporada.datasets[0].data = resultados.posicoesEmCorrida
+        let contagemResultadosEmCorrida: number[] = [];
+        let contagemResultadosEmClassificacao: number[] = [];
 
-        resultados.forEach(resultado => {
-          contagemResultados[resultado] = (contagemResultados[resultado] || 0) + 1;
+        resultados.posicoesEmCorrida.forEach(resultado => {
+          contagemResultadosEmCorrida[resultado] = (contagemResultadosEmCorrida[resultado] || 0) + 1;
         });
 
-        this.resultadosEmTemporadaPie.labels = Array.from(contagemResultados.keys());
-        this.resultadosEmTemporadaPie.datasets[0].data = contagemResultados;
+        contagemResultadosEmClassificacao = this.contarZonasDeClassificacao(resultados.posicoesEmClassificacao);
+
+
+        this.resultadosEmTemporadaPie.labels = Array.from(contagemResultadosEmCorrida.keys());
+        this.resultadosEmTemporadaPie.datasets[0].data = contagemResultadosEmCorrida;
+        console.log(contagemResultadosEmClassificacao)
+        this.zonasDeClassificacao.datasets[0].data = contagemResultadosEmClassificacao;
 
         this.charts?.forEach(chart => chart.update());
       });
 
+  }
+
+  private contarZonasDeClassificacao(posicoesEmClassificacao: number[]){
+    let q1 = 0;
+    let q2 = 0;
+    let q3 = 0;
+    let dnf = 0;
+
+    posicoesEmClassificacao.forEach(resultado => {
+      if(resultado > 0 && resultado <= 10){
+        q3++;
+      }
+      else if(resultado > 10 && resultado <= 15){
+        q2++;
+      }
+      else if(resultado >= 16 && resultado <= 20){
+        q1++;
+      }
+      else{
+        dnf++;
+      }
+    });
+
+    return [q1, q2, q3];
   }
 }
