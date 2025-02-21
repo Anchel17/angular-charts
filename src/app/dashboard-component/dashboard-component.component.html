@@ -40,7 +40,7 @@
     </mat-card>
 
     <mat-card class="pie-chart">
-      <span>Resultados 2024</span>
+      <span>{{getTextoResultadosEmTemporadaSelecionada('Resultados em')}}</span>
       <mat-card-content>
         <canvas baseChart
         [type]="pieChartType"
@@ -51,7 +51,7 @@
     </mat-card>
 
     <mat-card class="pie-chart">
-      <span>Zonas de classificação 2024</span>
+      <span>{{getTextoResultadosEmTemporadaSelecionada('Zonas de classificação em')}}</span>
       <mat-card-content>
         <canvas baseChart
         [type]="pieChartType"

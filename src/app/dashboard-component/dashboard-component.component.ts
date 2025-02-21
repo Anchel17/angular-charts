@@ -68,7 +68,7 @@ export class DashboardComponentComponent {
   public resultadosEmTemporada: ChartConfiguration['data'] = {
     datasets: [
       {
-        label: 'resultados 2024',
+        label: '',
         data: [],
         fill: 'origin',
         pointHoverBorderColor: 'rgba(148,159,177,0.8)',
@@ -101,7 +101,7 @@ export class DashboardComponentComponent {
   public zonasDeClassificacao: ChartConfiguration['data'] = {
     datasets: [
       {
-        label: 'zonas de classificação 2024',
+        label: '',
         data: [],
         fill: 'origin',
         pointHoverBorderColor: 'rgba(148,159,177,0.8)',
@@ -178,6 +178,8 @@ export class DashboardComponentComponent {
       .subscribe(resultados => {
         this.resultadosEmTemporada.labels = Array.from({length: resultados.posicoesEmCorrida.length}, (_, i) => (i+1).toString())
         this.resultadosEmTemporada.datasets[0].data = resultados.posicoesEmCorrida
+        this.resultadosEmTemporada.datasets[0].label = `Resultados em ${this.temporadaSelecionada}`;
+
         let contagemResultadosEmCorrida: number[] = [];
         let contagemResultadosEmClassificacao: number[] = [];
 
@@ -187,8 +189,8 @@ export class DashboardComponentComponent {
 
         contagemResultadosEmClassificacao = this.contarZonasDeClassificacao(resultados.posicoesEmClassificacao);
 
-        this.resultadosEmTemporadaPie.labels = Array.from(contagemResultadosEmCorrida.keys());
-        this.resultadosEmTemporadaPie.datasets[0].data = contagemResultadosEmCorrida;
+        this.resultadosEmTemporadaPie.labels = this.tratarKeysContagemResultadosEmCorrida(contagemResultadosEmCorrida)
+        this.resultadosEmTemporadaPie.datasets[0].data = contagemResultadosEmCorrida.filter(value => value != undefined);
         this.zonasDeClassificacao.datasets[0].data = contagemResultadosEmClassificacao;
 
         this.charts?.forEach(chart => chart.update());
@@ -228,11 +230,27 @@ export class DashboardComponentComponent {
     return [q1, q2, q3];
   }
 
+  private tratarKeysContagemResultadosEmCorrida(contagemResultadosEmCorrida: number[]): number[]{
+    let keysContagemResultados = Array.from(contagemResultadosEmCorrida.keys());
+
+    for(let i = 0; i < contagemResultadosEmCorrida.length; i++){
+      if(contagemResultadosEmCorrida[i] == undefined){
+        keysContagemResultados[i] = -1;
+      }
+    }
+
+    keysContagemResultados = keysContagemResultados.filter(value => value != -1);
+
+    return keysContagemResultados;
+  }
+
   public mudarTemporada(selectChange: MatSelectChange){
     this.temporadaSelecionada = selectChange.value;
 
     this.getDadosParaGraficos();
+  }
 
-    // this.charts?.forEach(chart => chart.update());
+  public getTextoResultadosEmTemporadaSelecionada(textoInicial: string){
+    return textoInicial.concat(` ${this.temporadaSelecionada}`);
   }
 }
