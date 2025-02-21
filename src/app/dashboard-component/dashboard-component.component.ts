@@ -29,7 +29,33 @@ export class DashboardComponentComponent {
   public lineChartType: ChartType = 'line';
   public pieChartType: ChartType = 'pie';
 
-  public lineChartOptions: ChartConfiguration['options'] = {
+  public resultadosEmTemporadaLineChartOptions: ChartConfiguration['options'] = {
+    elements: {
+      line: {
+        tension: 0.1,
+      },
+    },
+    scales: {
+      y: {
+        position: 'left',
+        min: 0,
+        max: 20
+      }
+    },
+    plugins: {
+      tooltip : {
+        callbacks : {
+          title: () => '',
+          label: function(tooltipItem) {
+            return tooltipItem.raw != 0 ? `Corrida ${tooltipItem.label}, chegada: ${tooltipItem.raw}º lugar.`
+            : `Corrida ${tooltipItem.label}: DNF/DNS.`;
+          }
+        }
+      }
+    }
+  };
+
+  public podiosPorTemporadalineChartOptions: ChartConfiguration['options'] = {
     elements: {
       line: {
         tension: 0.1,
@@ -40,6 +66,39 @@ export class DashboardComponentComponent {
         position: 'left',
       }
     },
+    plugins: {
+      tooltip : {
+        callbacks : {
+          title: () => '',
+          label: function(tooltipItem) {
+            return `Pódios em ${tooltipItem.label}: ${tooltipItem.raw}.`;
+          }
+        }
+      }
+    }
+  };
+
+  public pontosPorTemporadalineChartOptions: ChartConfiguration['options'] = {
+    elements: {
+      line: {
+        tension: 0.1,
+      },
+    },
+    scales: {
+      y: {
+        position: 'left',
+      }
+    },
+    plugins: {
+      tooltip : {
+        callbacks : {
+          title: () => '',
+          label: function(tooltipItem) {
+            return `Pontos em ${tooltipItem.label}: ${tooltipItem.raw}.`;
+          }
+        }
+      }
+    }
   };
 
   public resultadosEmTemporadaChartOptions: ChartConfiguration['options'] = {
@@ -59,6 +118,15 @@ export class DashboardComponentComponent {
         labels: {
           filter: (legendItem, data) => {
             return true
+          }
+        }
+      },
+      tooltip: {
+        callbacks: {
+          title: () => '',
+          label: function(tooltipItem){
+            return tooltipItem.label ? `Chegadas em ${tooltipItem.label}º lugar: ${tooltipItem.raw}.`
+            : `Abandonos/Não largou: ${tooltipItem.raw}.`
           }
         }
       }
@@ -95,6 +163,15 @@ export class DashboardComponentComponent {
         display: true,
         position: 'bottom',
       },
+      tooltip: {
+        callbacks: {
+          title: () => '',
+          label: function(tooltipItem){
+            return tooltipItem.label != 'Q3' ? `Eliminações no ${tooltipItem.label}: ${tooltipItem.raw}`
+            : `Passagens ao ${tooltipItem.label}: ${tooltipItem.raw}`
+          }
+        }
+      }
     },
   };
 
