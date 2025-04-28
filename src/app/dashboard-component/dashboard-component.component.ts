@@ -6,6 +6,11 @@ import { count, map } from 'rxjs';
 import { DashboardService } from './dashboard.service';
 import { MatSelectChange } from '@angular/material/select';
 
+const backgroundColorPilotos = [
+  {nome: 'leclerc', classe:'leclerc-bg-color'},
+  {nome: 'verstappen', classe:'verstappen-bg-color'},
+  {nome: 'norris', classe:'norris-bg-color'}
+];
 @Component({
   selector: 'app-dashboard-component',
   templateUrl: './dashboard-component.component.html',
@@ -329,5 +334,9 @@ export class DashboardComponentComponent {
 
   public getTextoResultadosEmTemporadaSelecionada(textoInicial: string){
     return textoInicial.concat(` ${this.temporadaSelecionada}`);
+  }
+
+  public getBackgroundColor(): string{
+    return backgroundColorPilotos.find(piloto => this.nomeDoPiloto == piloto.nome)!.classe;
   }
 }

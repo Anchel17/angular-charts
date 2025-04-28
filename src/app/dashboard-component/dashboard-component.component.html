@@ -1,64 +1,66 @@
-<div class="seleciona-temporada">
-  <mat-form-field>
-    <mat-label>Temporada</mat-label>
-    <mat-select [(value)]="temporadaSelecionada" (selectionChange)="mudarTemporada($event)">
-      <mat-option *ngFor="let ano of anos" [value]="ano">{{ano}}</mat-option>
-    </mat-select>
-  </mat-form-field>
-</div>
+<div class="dashboard-body {{getBackgroundColor()}}">
+  <div class="seleciona-temporada">
+    <mat-form-field>
+      <mat-label>Temporada</mat-label>
+      <mat-select [(value)]="temporadaSelecionada" (selectionChange)="mudarTemporada($event)">
+        <mat-option *ngFor="let ano of anos" [value]="ano">{{ano}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
 
-<div class="graficos-container">
-  <div class="cards-container">
-    <mat-card class="line-chart">
-      <mat-card-content>
-        <canvas baseChart
-        [type]="lineChartType"
-        [data]="resultadosEmTemporada"
-        [options]="resultadosEmTemporadaLineChartOptions">
-        </canvas>
-      </mat-card-content>
-    </mat-card>
+  <div class="graficos-container">
+    <div class="cards-container">
+      <mat-card class="line-chart">
+        <mat-card-content>
+          <canvas baseChart
+          [type]="lineChartType"
+          [data]="resultadosEmTemporada"
+          [options]="resultadosEmTemporadaLineChartOptions">
+          </canvas>
+        </mat-card-content>
+      </mat-card>
 
-    <mat-card class="line-chart">
-      <mat-card-content>
-        <canvas baseChart
-        [type]="lineChartType"
-        [data]="podiosPorTemporada"
-        [options]="podiosPorTemporadalineChartOptions">
-        </canvas>
-      </mat-card-content>
-    </mat-card>
+      <mat-card class="line-chart">
+        <mat-card-content>
+          <canvas baseChart
+          [type]="lineChartType"
+          [data]="podiosPorTemporada"
+          [options]="podiosPorTemporadalineChartOptions">
+          </canvas>
+        </mat-card-content>
+      </mat-card>
 
-    <mat-card class="line-chart">
-      <mat-card-content>
-        <canvas baseChart
-        [type]="lineChartType"
-        [data]="pontosPorTemporada"
-        [options]="pontosPorTemporadalineChartOptions">
-        </canvas>
-      </mat-card-content>
-    </mat-card>
+      <mat-card class="line-chart">
+        <mat-card-content>
+          <canvas baseChart
+          [type]="lineChartType"
+          [data]="pontosPorTemporada"
+          [options]="pontosPorTemporadalineChartOptions">
+          </canvas>
+        </mat-card-content>
+      </mat-card>
 
-    <mat-card class="pie-chart">
-      <span>{{getTextoResultadosEmTemporadaSelecionada('Resultados em')}}</span>
-      <mat-card-content>
-        <canvas baseChart
-        [type]="pieChartType"
-        [data]="resultadosEmTemporadaPie"
-        [options]="resultadosEmTemporadaPieChartOptions">
-        </canvas>
-      </mat-card-content>
-    </mat-card>
+      <mat-card class="pie-chart">
+        <span>{{getTextoResultadosEmTemporadaSelecionada('Resultados em')}}</span>
+        <mat-card-content>
+          <canvas baseChart
+          [type]="pieChartType"
+          [data]="resultadosEmTemporadaPie"
+          [options]="resultadosEmTemporadaPieChartOptions">
+          </canvas>
+        </mat-card-content>
+      </mat-card>
 
-    <mat-card class="pie-chart">
-      <span>{{getTextoResultadosEmTemporadaSelecionada('Zonas de classificação em')}}</span>
-      <mat-card-content>
-        <canvas baseChart
-        [type]="pieChartType"
-        [data]="zonasDeClassificacao"
-        [options]="zonasDeClassificacaoChartOptions">
-        </canvas>
-      </mat-card-content>
-    </mat-card>
+      <mat-card class="pie-chart">
+        <span>{{getTextoResultadosEmTemporadaSelecionada('Zonas de classificação em')}}</span>
+        <mat-card-content>
+          <canvas baseChart
+          [type]="pieChartType"
+          [data]="zonasDeClassificacao"
+          [options]="zonasDeClassificacaoChartOptions">
+          </canvas>
+        </mat-card-content>
+      </mat-card>
+    </div>
   </div>
 </div>

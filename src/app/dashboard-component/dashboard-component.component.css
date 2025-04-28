@@ -1,8 +1,25 @@
+.dashboard-body{
+  height: 100vh;
+  overflow: hidden;
+}
+
 .seleciona-temporada{
   display: flex;
   justify-content: center;
   padding-top: 2rem;
   width: 100%;
+}
+
+.leclerc-bg-color{
+  background-color: #C3151C;
+}
+
+.verstappen-bg-color{
+  background-color: #223971;
+}
+
+.norris-bg-color{
+  background-color: #DA7223;
 }
 
 .line-chart{
@@ -19,7 +36,7 @@
 .pie-chart .mat-mdc-card-content{
   margin: auto;
   padding: .5rem 0;
-  width: 75%;
+  width: 70%;
 }
 
 .pie-chart .mat-mdc-card-content span{
