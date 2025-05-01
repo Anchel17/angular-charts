@@ -12,31 +12,33 @@
     <div class="cards-container">
       <mat-card class="line-chart">
         <mat-card-content>
-          <canvas baseChart
-          [type]="lineChartType"
-          [data]="resultadosEmTemporada"
-          [options]="resultadosEmTemporadaLineChartOptions">
-          </canvas>
+          <app-grafico-de-linha
+          [resultados]="resultadosEmTemporada"
+          [lineChartOptionsPlugins]="getPluginsResultadosEmTemporadaLineChart()"
+          [maxYValue]="20"
+          >
+          </app-grafico-de-linha>
         </mat-card-content>
       </mat-card>
 
       <mat-card class="line-chart">
         <mat-card-content>
-          <canvas baseChart
-          [type]="lineChartType"
-          [data]="podiosPorTemporada"
-          [options]="podiosPorTemporadalineChartOptions">
-          </canvas>
+          <app-grafico-de-linha
+          [resultados]="podiosPorTemporada"
+          [lineChartOptionsPlugins]="getPluginsResultadosPorTemporadaLineChart('Pódios em')"
+          [maxYValue]="20"
+          >
+          </app-grafico-de-linha>
         </mat-card-content>
       </mat-card>
 
       <mat-card class="line-chart">
         <mat-card-content>
-          <canvas baseChart
-          [type]="lineChartType"
-          [data]="pontosPorTemporada"
-          [options]="pontosPorTemporadalineChartOptions">
-          </canvas>
+          <app-grafico-de-linha
+          [resultados]="pontosPorTemporada"
+          [lineChartOptionsPlugins]="getPluginsResultadosPorTemporadaLineChart('Pontos em')"
+          >
+          </app-grafico-de-linha>
         </mat-card-content>
       </mat-card>
 

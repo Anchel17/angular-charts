@@ -1,10 +1,10 @@
-import { Component, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Chart, ChartConfiguration, ChartType } from 'chart.js';
+import { Component, QueryList, ViewChildren } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Chart, ChartConfiguration, ChartType, ChartTypeRegistry, PluginOptionsByType, TooltipItem } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
-import { count, map } from 'rxjs';
 import { DashboardService } from './dashboard.service';
 import { MatSelectChange } from '@angular/material/select';
+import { _DeepPartialObject } from 'chart.js/dist/types/utils';
 
 const backgroundColorPilotos = [
   {nome: 'leclerc', classe:'leclerc-bg-color'},
@@ -31,89 +31,7 @@ export class DashboardComponentComponent {
     'Q1', 'Q2', 'Q3'
   ]
 
-  public lineChartType: ChartType = 'line';
   public pieChartType: ChartType = 'pie';
-
-  public resultadosEmTemporadaLineChartOptions: ChartConfiguration['options'] = {
-    elements: {
-      line: {
-        tension: 0.1,
-      },
-    },
-    scales: {
-      y: {
-        position: 'left',
-        min: 0,
-        max: 20
-      }
-    },
-    plugins: {
-      tooltip : {
-        callbacks : {
-          title: () => '',
-          label: function(tooltipItem) {
-            return tooltipItem.raw != 0 ? `Corrida ${tooltipItem.label}, chegada: ${tooltipItem.raw}º lugar.`
-            : `Corrida ${tooltipItem.label}: DNF/DNS.`;
-          }
-        }
-      }
-    }
-  };
-
-  public podiosPorTemporadalineChartOptions: ChartConfiguration['options'] = {
-    elements: {
-      line: {
-        tension: 0.1,
-      },
-    },
-    scales: {
-      y: {
-        position: 'left',
-      }
-    },
-    plugins: {
-      tooltip : {
-        callbacks : {
-          title: () => '',
-          label: function(tooltipItem) {
-            return `Pódios em ${tooltipItem.label}: ${tooltipItem.raw}.`;
-          }
-        }
-      }
-    }
-  };
-
-  public pontosPorTemporadalineChartOptions: ChartConfiguration['options'] = {
-    elements: {
-      line: {
-        tension: 0.1,
-      },
-    },
-    scales: {
-      y: {
-        position: 'left',
-      }
-    },
-    plugins: {
-      tooltip : {
-        callbacks : {
-          title: () => '',
-          label: function(tooltipItem) {
-            return `Pontos em ${tooltipItem.label}: ${tooltipItem.raw}.`;
-          }
-        }
-      }
-    }
-  };
-
-  public resultadosEmTemporadaChartOptions: ChartConfiguration['options'] = {
-    plugins: {
-      legend: {
-        display: false,
-        position: 'bottom',
-      },
-    },
-  };
 
   public resultadosEmTemporadaPieChartOptions: ChartConfiguration['options'] = {
     plugins: {
@@ -138,17 +56,6 @@ export class DashboardComponentComponent {
     },
   };
 
-  public resultadosEmTemporada: ChartConfiguration['data'] = {
-    datasets: [
-      {
-        label: '',
-        data: [],
-        fill: 'origin',
-        pointHoverBorderColor: 'rgba(148,159,177,0.8)',
-      }
-    ],
-    labels: []
-  }
 
   public resultadosEmTemporadaPie: ChartConfiguration['data'] ={
     datasets: [
@@ -192,6 +99,18 @@ export class DashboardComponentComponent {
     labels: this.labelsZonaDeClassificacao
   }
 
+  public resultadosEmTemporada: ChartConfiguration['data'] = {
+    datasets: [
+      {
+        label: '',
+        data: [],
+        fill: 'origin',
+        pointHoverBorderColor: 'rgba(148,159,177,0.8)',
+      }
+    ],
+    labels: []
+  }
+
   public podiosPorTemporada: ChartConfiguration['data'] = {
     datasets: [
       {
@@ -230,6 +149,33 @@ export class DashboardComponentComponent {
     this.getDadosParaGraficos();
 
     this.charts?.forEach(chart => chart.update());
+  }
+
+  public getPluginsResultadosEmTemporadaLineChart(): _DeepPartialObject<PluginOptionsByType<keyof ChartTypeRegistry>>{
+    return {
+      tooltip : {
+        callbacks : {
+          title: () => '',
+          label: function(tooltipItem: TooltipItem<keyof ChartTypeRegistry>) {
+            return tooltipItem.raw != 0 ? `Corrida ${tooltipItem.label}, chegada: ${tooltipItem.raw}º lugar.`
+            : `Corrida ${tooltipItem.label}: DNF/DNS.`;
+          }
+        }
+      }
+    }
+  }
+
+  public getPluginsResultadosPorTemporadaLineChart(legenda: string): _DeepPartialObject<PluginOptionsByType<keyof ChartTypeRegistry>>{
+    return {
+      tooltip : {
+        callbacks : {
+          title: () => '',
+          label: function(tooltipItem: TooltipItem<keyof ChartTypeRegistry>) {
+            return `${legenda} ${tooltipItem.label}: ${tooltipItem.raw}.`;
+          }
+        }
+      }
+    }
   }
 
   private setGpsDisputados(){
@@ -289,27 +235,21 @@ export class DashboardComponentComponent {
   }
 
   private contarZonasDeClassificacao(posicoesEmClassificacao: number[]){
-    let q1 = 0;
-    let q2 = 0;
-    let q3 = 0;
-    let dnf = 0;
-
-    posicoesEmClassificacao.forEach(resultado => {
-      if(resultado > 0 && resultado <= 10){
-        q3++;
-      }
-      else if(resultado > 10 && resultado <= 15){
-        q2++;
-      }
-      else if(resultado >= 16 && resultado <= 20){
-        q1++;
-      }
-      else{
-        dnf++;
-      }
-    });
-
-    return [q1, q2, q3];
+    return posicoesEmClassificacao.reduce(
+      ([q1, q2, q3], pos) => {
+        if(pos > 0 && pos <= 10){
+          q3++;
+        }
+        else if(pos > 10 && pos <= 15){
+          q2++;
+        }
+        else if(pos >= 16 && pos <= 20){
+          q1++;
+        }
+        return [q1, q2, q3]
+      },
+      [0, 0, 0]
+    ).slice(0, 3);
   }
 
   private tratarKeysContagemResultadosEmCorrida(contagemResultadosEmCorrida: number[]): number[]{
