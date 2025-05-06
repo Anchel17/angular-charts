@@ -1,6 +1,6 @@
 import { Component, QueryList, ViewChildren } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Chart, ChartConfiguration, ChartType, ChartTypeRegistry, PluginOptionsByType, TooltipItem } from 'chart.js';
+import { Chart, ChartConfiguration, ChartType, ChartTypeRegistry, PluginOptionsByType, TooltipCallbacks, TooltipItem, TooltipModel } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { DashboardService } from './dashboard.service';
 import { MatSelectChange } from '@angular/material/select';
@@ -31,62 +31,6 @@ export class DashboardComponentComponent {
     'Q1', 'Q2', 'Q3'
   ]
 
-  public pieChartType: ChartType = 'pie';
-
-  public resultadosEmTemporadaPieChartOptions: ChartConfiguration['options'] = {
-    plugins: {
-      legend: {
-        display: true,
-        position: 'bottom',
-        labels: {
-          filter: (legendItem, data) => {
-            return true
-          }
-        }
-      },
-      tooltip: {
-        callbacks: {
-          title: () => '',
-          label: function(tooltipItem){
-            return tooltipItem.label ? `Chegadas em ${tooltipItem.label}º lugar: ${tooltipItem.raw}.`
-            : `Abandonos/Não largou: ${tooltipItem.raw}.`
-          }
-        }
-      }
-    },
-  };
-
-
-  public resultadosEmTemporadaPie: ChartConfiguration['data'] ={
-    datasets: [
-      {
-        label: 'Chegadas na posição: ',
-        data: [],
-        fill: 'origin',
-        pointHoverBorderColor: 'rgba(148,159,177,0.8)',
-      }
-    ],
-    labels: []
-  }
-
-  public zonasDeClassificacaoChartOptions: ChartConfiguration['options'] = {
-    plugins: {
-      legend: {
-        display: true,
-        position: 'bottom',
-      },
-      tooltip: {
-        callbacks: {
-          title: () => '',
-          label: function(tooltipItem){
-            return tooltipItem.label != 'Q3' ? `Eliminações no ${tooltipItem.label}: ${tooltipItem.raw}`
-            : `Passagens ao ${tooltipItem.label}: ${tooltipItem.raw}`
-          }
-        }
-      }
-    },
-  };
-
   public zonasDeClassificacao: ChartConfiguration['data'] = {
     datasets: [
       {
@@ -96,7 +40,19 @@ export class DashboardComponentComponent {
         pointHoverBorderColor: 'rgba(148,159,177,0.8)',
       }
     ],
-    labels: this.labelsZonaDeClassificacao
+    labels: []
+  }
+
+  public resultadosEmTemporadaPie: ChartConfiguration['data'] ={
+    datasets: [
+      {
+        label: '',
+        data: [],
+        fill: 'origin',
+        pointHoverBorderColor: 'rgba(148,159,177,0.8)',
+      }
+    ],
+    labels: []
   }
 
   public resultadosEmTemporada: ChartConfiguration['data'] = {
@@ -175,6 +131,28 @@ export class DashboardComponentComponent {
           }
         }
       }
+    }
+  }
+
+  public getResultadosEmTemporadaTooltipCallbacks(): _DeepPartialObject<TooltipCallbacks<keyof ChartTypeRegistry, TooltipModel<keyof ChartTypeRegistry>,
+  TooltipItem<keyof ChartTypeRegistry>>>{
+    return {
+        title: () => '',
+        label: function(tooltipItem: TooltipItem<keyof ChartTypeRegistry>){
+          return tooltipItem.label ? `Chegadas em ${tooltipItem.label}º lugar: ${tooltipItem.raw}.`
+          : `Abandonos/Não largou: ${tooltipItem.raw}.`
+      }
+    }
+  }
+
+  public getZonasDeClassificacaoTooltipCallbacks(): _DeepPartialObject<TooltipCallbacks<keyof ChartTypeRegistry, TooltipModel<keyof ChartTypeRegistry>,
+  TooltipItem<keyof ChartTypeRegistry>>>{
+    return {
+        title: () => '',
+        label: function(tooltipItem){
+          return tooltipItem.label != 'Q3' ? `Eliminações no ${tooltipItem.label}: ${tooltipItem.raw}`
+          : `Passagens ao ${tooltipItem.label}: ${tooltipItem.raw}`
+        }
     }
   }
 

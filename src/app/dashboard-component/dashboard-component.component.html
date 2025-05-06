@@ -26,7 +26,7 @@
           <app-grafico-de-linha
           [resultados]="podiosPorTemporada"
           [lineChartOptionsPlugins]="getPluginsResultadosPorTemporadaLineChart('Pódios em')"
-          [maxYValue]="20"
+          [maxYValue]="24"
           >
           </app-grafico-de-linha>
         </mat-card-content>
@@ -45,22 +45,24 @@
       <mat-card class="pie-chart">
         <span>{{getTextoResultadosEmTemporadaSelecionada('Resultados em')}}</span>
         <mat-card-content>
-          <canvas baseChart
-          [type]="pieChartType"
-          [data]="resultadosEmTemporadaPie"
-          [options]="resultadosEmTemporadaPieChartOptions">
-          </canvas>
+          <app-grafico-pie
+          [pieChartData]="resultadosEmTemporadaPie"
+          [tooltipCallbacks]="getResultadosEmTemporadaTooltipCallbacks()"
+          [datasetLabelPieChart]="'Chegadas na posicao: '"
+          >
+          </app-grafico-pie>
         </mat-card-content>
       </mat-card>
 
       <mat-card class="pie-chart">
         <span>{{getTextoResultadosEmTemporadaSelecionada('Zonas de classificação em')}}</span>
         <mat-card-content>
-          <canvas baseChart
-          [type]="pieChartType"
-          [data]="zonasDeClassificacao"
-          [options]="zonasDeClassificacaoChartOptions">
-          </canvas>
+          <app-grafico-pie
+          [pieChartData]="zonasDeClassificacao"
+          [labelsPieChart]="['Q1', 'Q2', 'Q3']"
+          [tooltipCallbacks]="getZonasDeClassificacaoTooltipCallbacks()"
+          >
+          </app-grafico-pie>
         </mat-card-content>
       </mat-card>
     </div>

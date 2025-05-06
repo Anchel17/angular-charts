@@ -14,7 +14,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { HttpClientModule } from '@angular/common/http';
-import { GraficoDeLinhaComponent } from './dashboard-component/graficos/grafico-de-linha/grafico-de-linha/grafico-de-linha.component'
+import { GraficoDeLinhaComponent } from './dashboard-component/graficos/grafico-de-linha/grafico-de-linha.component';
+import { GraficoPieComponent } from './dashboard-component/graficos/grafico-pie/grafico-pie.component'
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { GraficoDeLinhaComponent } from './dashboard-component/graficos/grafico-
     AppComponent,
     MenuComponentComponent,
     DashboardComponentComponent,
-    GraficoDeLinhaComponent
+    GraficoDeLinhaComponent,
+    GraficoPieComponent
   ],
   imports: [
     BrowserModule,
