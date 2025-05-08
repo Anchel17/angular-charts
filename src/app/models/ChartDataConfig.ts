@@ -1,4 +1,4 @@
-export class LineChartConfig{
+export class ChartDataConfig{
 
   constructor(){}
 

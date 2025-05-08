@@ -5,7 +5,7 @@ import { BaseChartDirective } from 'ng2-charts';
 import { DashboardService } from './dashboard.service';
 import { MatSelectChange } from '@angular/material/select';
 import { _DeepPartialObject } from 'chart.js/dist/types/utils';
-import { LineChartConfig } from '../models/LineChartConfig';
+import { ChartDataConfig } from '../models/ChartDataConfig';
 
 const backgroundColorPilotos = [
   {nome: 'leclerc', classe:'leclerc-bg-color'},
@@ -16,7 +16,7 @@ const backgroundColorPilotos = [
   selector: 'app-dashboard-component',
   templateUrl: './dashboard-component.component.html',
   styleUrls: ['./dashboard-component.component.css'],
-  providers: [ DashboardService, LineChartConfig ]
+  providers: [ DashboardService ]
 })
 export class DashboardComponentComponent {
   private nomeDoPiloto: string = '';
@@ -26,33 +26,11 @@ export class DashboardComponentComponent {
 
   @ViewChildren(BaseChartDirective) charts?: QueryList<BaseChartDirective>;
 
-  public resultadosEmTemporadaChartConfig: LineChartConfig = new LineChartConfig();
-  public podiosPorTemporadaChartConfig: LineChartConfig = new LineChartConfig();
-  public pontosPorTemporadaChartConfig: LineChartConfig = new LineChartConfig();
-
-  public zonasDeClassificacao: ChartConfiguration['data'] = {
-    datasets: [
-      {
-        label: '',
-        data: [],
-        fill: 'origin',
-        pointHoverBorderColor: 'rgba(148,159,177,0.8)',
-      }
-    ],
-    labels: []
-  }
-
-  public resultadosEmTemporadaPie: ChartConfiguration['data'] ={
-    datasets: [
-      {
-        label: '',
-        data: [],
-        fill: 'origin',
-        pointHoverBorderColor: 'rgba(148,159,177,0.8)',
-      }
-    ],
-    labels: []
-  }
+  public resultadosEmTemporadaChartConfig: ChartDataConfig = new ChartDataConfig();
+  public podiosPorTemporadaChartConfig: ChartDataConfig = new ChartDataConfig();
+  public pontosPorTemporadaChartConfig: ChartDataConfig = new ChartDataConfig();
+  public resultadosEmTemporadaPieChartConfig: ChartDataConfig = new ChartDataConfig();
+  public zonasDeClassificacaoPieChartConfig: ChartDataConfig = new ChartDataConfig();
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -102,7 +80,7 @@ export class DashboardComponentComponent {
     return {
         title: () => '',
         label: function(tooltipItem: TooltipItem<keyof ChartTypeRegistry>){
-          return tooltipItem.label ? `Chegadas em ${tooltipItem.label}º lugar: ${tooltipItem.raw}.`
+          return tooltipItem.label != '0' ? `Chegadas em ${tooltipItem.label}º lugar: ${tooltipItem.raw}.`
           : `Abandonos/Não largou: ${tooltipItem.raw}.`
       }
     }
@@ -158,9 +136,9 @@ export class DashboardComponentComponent {
 
         contagemResultadosEmClassificacao = this.contarZonasDeClassificacao(resultados.posicoesEmClassificacao);
 
-        this.resultadosEmTemporadaPie.labels = this.tratarKeysContagemResultadosEmCorrida(contagemResultadosEmCorrida)
-        this.resultadosEmTemporadaPie.datasets[0].data = contagemResultadosEmCorrida.filter(value => value != undefined);
-        this.zonasDeClassificacao.datasets[0].data = contagemResultadosEmClassificacao;
+        this.resultadosEmTemporadaPieChartConfig.labels = this.tratarKeysContagemResultadosEmCorrida(contagemResultadosEmCorrida);
+        this.resultadosEmTemporadaPieChartConfig.datasetData = contagemResultadosEmCorrida.filter(value => value != undefined);
+        this.zonasDeClassificacaoPieChartConfig.datasetData = contagemResultadosEmClassificacao;
 
         this.charts?.forEach(chart => chart.update());
       });
@@ -194,7 +172,7 @@ export class DashboardComponentComponent {
     ).slice(0, 3);
   }
 
-  private tratarKeysContagemResultadosEmCorrida(contagemResultadosEmCorrida: number[]): number[]{
+  private tratarKeysContagemResultadosEmCorrida(contagemResultadosEmCorrida: number[]): string[]{
     let keysContagemResultados = Array.from(contagemResultadosEmCorrida.keys());
 
     for(let i = 0; i < contagemResultadosEmCorrida.length; i++){
@@ -203,9 +181,9 @@ export class DashboardComponentComponent {
       }
     }
 
-    keysContagemResultados = keysContagemResultados.filter(value => value != -1);
+    let keysContagemResultadosString = keysContagemResultados.filter(value => value != -1).map(value => value.toString());
 
-    return keysContagemResultados;
+    return keysContagemResultadosString;
   }
 
   public mudarTemporada(selectChange: MatSelectChange){

@@ -2,7 +2,7 @@ import { Component, Input, SimpleChanges, ViewChild, ViewChildren } from '@angul
 import { ChartConfiguration, ChartType, ChartTypeRegistry, PluginOptionsByType } from 'chart.js';
 import { _DeepPartialObject } from 'chart.js/dist/types/utils';
 import { BaseChartDirective } from 'ng2-charts';
-import { LineChartConfig } from 'src/app/models/LineChartConfig';
+import { ChartDataConfig } from 'src/app/models/ChartDataConfig';
 
 @Component({
   selector: 'app-grafico-de-linha',
@@ -13,7 +13,7 @@ export class GraficoDeLinhaComponent {
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
   @Input()
-  public lineChartDataConfig!: LineChartConfig;
+  public lineChartDataConfig!: ChartDataConfig;
 
   @Input()
   public lineChartOptionsPlugins!: _DeepPartialObject<PluginOptionsByType<keyof ChartTypeRegistry>>;
@@ -43,7 +43,6 @@ export class GraficoDeLinhaComponent {
   }
 
   ngOnChanges(changes: SimpleChanges){
-    console.log(this.lineChartDataConfig);
     this.configurarOptions();
     this.configurarChartData();
     this.chart?.update();

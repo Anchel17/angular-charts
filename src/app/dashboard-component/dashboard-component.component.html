@@ -46,7 +46,7 @@
         <span>{{getTextoResultadosEmTemporadaSelecionada('Resultados em')}}</span>
         <mat-card-content>
           <app-grafico-pie
-          [pieChartData]="resultadosEmTemporadaPie"
+          [pieChartDataConfig]="resultadosEmTemporadaPieChartConfig"
           [tooltipCallbacks]="getResultadosEmTemporadaTooltipCallbacks()"
           [datasetLabelPieChart]="'Chegadas na posicao: '"
           >
@@ -58,7 +58,7 @@
         <span>{{getTextoResultadosEmTemporadaSelecionada('Zonas de classificação em')}}</span>
         <mat-card-content>
           <app-grafico-pie
-          [pieChartData]="zonasDeClassificacao"
+          [pieChartDataConfig]="zonasDeClassificacaoPieChartConfig"
           [labelsPieChart]="['Q1', 'Q2', 'Q3']"
           [tooltipCallbacks]="getZonasDeClassificacaoTooltipCallbacks()"
           >
