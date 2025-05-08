@@ -18,14 +18,6 @@ export class DashboardService{
     );
   }
 
-  public getGpsDisputados(nomeDoPiloto: string): Observable<number>{
-    this.path = this.replaceStringNomeDoPiloto(nomeDoPiloto);
-
-    return this.httpClient.get<PilotoDTO>(this.path).pipe(
-      map(piloto => piloto.gpsDisputados)
-    );
-  }
-
   public getResultadosEmTemporadaSelecionada(nomeDoPiloto: string, indiceTemporada: number): Observable<ResultadosEmTemporadaDTO>{
     this.path = this.replaceStringNomeDoPiloto(nomeDoPiloto);
 

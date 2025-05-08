@@ -1,16 +1,15 @@
-import { Component, QueryList, ViewChildren } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Chart, ChartConfiguration, ChartType, ChartTypeRegistry, PluginOptionsByType, TooltipCallbacks, TooltipItem, TooltipModel } from 'chart.js';
-import { BaseChartDirective } from 'ng2-charts';
+import { ChartTypeRegistry, PluginOptionsByType, TooltipCallbacks, TooltipItem, TooltipModel } from 'chart.js';
 import { DashboardService } from './dashboard.service';
 import { MatSelectChange } from '@angular/material/select';
 import { _DeepPartialObject } from 'chart.js/dist/types/utils';
 import { ChartDataConfig } from '../models/ChartDataConfig';
 
-const backgroundColorPilotos = [
-  {nome: 'leclerc', classe:'leclerc-bg-color'},
-  {nome: 'verstappen', classe:'verstappen-bg-color'},
-  {nome: 'norris', classe:'norris-bg-color'}
+const coresPilotos = [
+  {nome: 'leclerc', classe:'leclerc-bg-color', 'backgroundColor': '#fcabad', 'borderColor': '#C3151C'},
+  {nome: 'verstappen', classe:'verstappen-bg-color', 'backgroundColor': '#7c9ae8', 'borderColor': '#223971'},
+  {nome: 'norris', classe:'norris-bg-color', 'backgroundColor': '#f1c3a0', 'borderColor': '#DA7223'}
 ];
 @Component({
   selector: 'app-dashboard-component',
@@ -22,9 +21,6 @@ export class DashboardComponentComponent {
   private nomeDoPiloto: string = '';
   public temporadaSelecionada: string = '';
   anos: string[] =[];
-  gpsDisputados: number = 0;
-
-  @ViewChildren(BaseChartDirective) charts?: QueryList<BaseChartDirective>;
 
   public resultadosEmTemporadaChartConfig: ChartDataConfig = new ChartDataConfig();
   public podiosPorTemporadaChartConfig: ChartDataConfig = new ChartDataConfig();
@@ -42,10 +38,85 @@ export class DashboardComponentComponent {
       this.nomeDoPiloto = params['nomeDoPiloto'];
     })
 
-    this.setGpsDisputados();
     this.getDadosParaGraficos();
+  }
 
-    this.charts?.forEach(chart => chart.update());
+  private getDadosParaGraficos(): void{
+    this.dashboardService.getAnosCompetidos(this.nomeDoPiloto).subscribe(anosArr =>{
+      this.anos = anosArr;
+      this.podiosPorTemporadaChartConfig.labels = [...anosArr];
+      this.pontosPorTemporadaChartConfig.labels = [...anosArr];
+      this.temporadaSelecionada = this.temporadaSelecionada ? this.temporadaSelecionada : anosArr[anosArr.length - 1];
+
+      this.getResultadosEmTemporada();
+      this.getResultadosEmCarreira();
+    });
+  }
+
+  private getResultadosEmTemporada(): void{
+    let indiceTemporada = this.anos.findIndex(ano => ano == this.temporadaSelecionada);
+
+    this.dashboardService.getResultadosEmTemporadaSelecionada(this.nomeDoPiloto, indiceTemporada)
+      .subscribe(resultados => {
+        this.resultadosEmTemporadaChartConfig.labels = Array.from({length: resultados.posicoesEmCorrida.length}, (_, i) => (i+1).toString());
+        this.resultadosEmTemporadaChartConfig.datasetData = resultados.posicoesEmCorrida;
+        this.resultadosEmTemporadaChartConfig.datasetLabel = `Resultados em ${this.temporadaSelecionada}`;
+
+        let contagemResultadosEmCorrida: number[] = [];
+        let contagemResultadosEmClassificacao: number[] = [];
+
+        resultados.posicoesEmCorrida.forEach(resultado => {
+          contagemResultadosEmCorrida[resultado] = (contagemResultadosEmCorrida[resultado] || 0) + 1;
+        });
+
+        contagemResultadosEmClassificacao = this.contarZonasDeClassificacao(resultados.posicoesEmClassificacao);
+
+        this.resultadosEmTemporadaPieChartConfig.labels = this.tratarKeysContagemResultadosEmCorrida(contagemResultadosEmCorrida);
+        this.resultadosEmTemporadaPieChartConfig.datasetData = contagemResultadosEmCorrida.filter(value => value != undefined);
+        this.zonasDeClassificacaoPieChartConfig.datasetData = contagemResultadosEmClassificacao;
+      });
+  }
+
+  private getResultadosEmCarreira(): void{
+    this.dashboardService.getResultadosEmCarreira(this.nomeDoPiloto).subscribe(resultados =>{
+      this.podiosPorTemporadaChartConfig.datasetData = resultados.podiosPorTemporada;
+      this.podiosPorTemporadaChartConfig.datasetLabel = 'Pódios por temporada';
+
+      this.pontosPorTemporadaChartConfig.datasetData = resultados.pontosPorTemporada;
+      this.pontosPorTemporadaChartConfig.datasetLabel = 'Pontos por temporada';
+    })
+  }
+
+  private contarZonasDeClassificacao(posicoesEmClassificacao: number[]){
+    return posicoesEmClassificacao.reduce(
+      ([q1, q2, q3], pos) => {
+        if(pos > 0 && pos <= 10){
+          q3++;
+        }
+        else if(pos > 10 && pos <= 15){
+          q2++;
+        }
+        else if(pos >= 16 && pos <= 20){
+          q1++;
+        }
+        return [q1, q2, q3]
+      },
+      [0, 0, 0]
+    ).slice(0, 3);
+  }
+
+  private tratarKeysContagemResultadosEmCorrida(contagemResultadosEmCorrida: number[]): string[]{
+    let keysContagemResultados = Array.from(contagemResultadosEmCorrida.keys());
+
+    for(let i = 0; i < contagemResultadosEmCorrida.length; i++){
+      if(contagemResultadosEmCorrida[i] == undefined){
+        keysContagemResultados[i] = -1;
+      }
+    }
+
+    let keysContagemResultadosString = keysContagemResultados.filter(value => value != -1).map(value => value.toString());
+
+    return keysContagemResultadosString;
   }
 
   public getPluginsResultadosEmTemporadaLineChart(): _DeepPartialObject<PluginOptionsByType<keyof ChartTypeRegistry>>{
@@ -97,95 +168,6 @@ export class DashboardComponentComponent {
     }
   }
 
-  private setGpsDisputados(){
-    this.dashboardService.getGpsDisputados(this.nomeDoPiloto).subscribe(numGpsDisputados =>{
-      this.gpsDisputados = numGpsDisputados;
-    })
-  }
-
-  private getDadosParaGraficos(): void{
-    this.dashboardService.getAnosCompetidos(this.nomeDoPiloto).subscribe(anosArr =>{
-      this.anos = anosArr;
-      this.podiosPorTemporadaChartConfig.labels = [...anosArr];
-      this.pontosPorTemporadaChartConfig.labels = [...anosArr];
-      this.temporadaSelecionada = this.temporadaSelecionada ? this.temporadaSelecionada : anosArr[anosArr.length - 1];
-
-      this.getResultadosEmTemporada();
-      this.getResultadosEmCarreira();
-
-      this.charts?.forEach(chart => chart.update());
-    });
-
-  }
-
-  private getResultadosEmTemporada(): void{
-    let indiceTemporada = this.anos.findIndex(ano => ano == this.temporadaSelecionada);
-
-    this.dashboardService.getResultadosEmTemporadaSelecionada(this.nomeDoPiloto, indiceTemporada)
-      .subscribe(resultados => {
-        this.resultadosEmTemporadaChartConfig.labels = Array.from({length: resultados.posicoesEmCorrida.length}, (_, i) => (i+1).toString());
-        this.resultadosEmTemporadaChartConfig.datasetData = resultados.posicoesEmCorrida;
-        this.resultadosEmTemporadaChartConfig.datasetLabel = `Resultados em ${this.temporadaSelecionada}`;
-
-        let contagemResultadosEmCorrida: number[] = [];
-        let contagemResultadosEmClassificacao: number[] = [];
-
-        resultados.posicoesEmCorrida.forEach(resultado => {
-          contagemResultadosEmCorrida[resultado] = (contagemResultadosEmCorrida[resultado] || 0) + 1;
-        });
-
-        contagemResultadosEmClassificacao = this.contarZonasDeClassificacao(resultados.posicoesEmClassificacao);
-
-        this.resultadosEmTemporadaPieChartConfig.labels = this.tratarKeysContagemResultadosEmCorrida(contagemResultadosEmCorrida);
-        this.resultadosEmTemporadaPieChartConfig.datasetData = contagemResultadosEmCorrida.filter(value => value != undefined);
-        this.zonasDeClassificacaoPieChartConfig.datasetData = contagemResultadosEmClassificacao;
-
-        this.charts?.forEach(chart => chart.update());
-      });
-  }
-
-  private getResultadosEmCarreira(): void{
-    this.dashboardService.getResultadosEmCarreira(this.nomeDoPiloto).subscribe(resultados =>{
-      this.podiosPorTemporadaChartConfig.datasetData = resultados.podiosPorTemporada;
-      this.podiosPorTemporadaChartConfig.datasetLabel = 'Pódios por temporada';
-
-      this.pontosPorTemporadaChartConfig.datasetData = resultados.pontosPorTemporada;
-      this.pontosPorTemporadaChartConfig.datasetLabel = 'Pontos por temporada';
-    })
-  }
-
-  private contarZonasDeClassificacao(posicoesEmClassificacao: number[]){
-    return posicoesEmClassificacao.reduce(
-      ([q1, q2, q3], pos) => {
-        if(pos > 0 && pos <= 10){
-          q3++;
-        }
-        else if(pos > 10 && pos <= 15){
-          q2++;
-        }
-        else if(pos >= 16 && pos <= 20){
-          q1++;
-        }
-        return [q1, q2, q3]
-      },
-      [0, 0, 0]
-    ).slice(0, 3);
-  }
-
-  private tratarKeysContagemResultadosEmCorrida(contagemResultadosEmCorrida: number[]): string[]{
-    let keysContagemResultados = Array.from(contagemResultadosEmCorrida.keys());
-
-    for(let i = 0; i < contagemResultadosEmCorrida.length; i++){
-      if(contagemResultadosEmCorrida[i] == undefined){
-        keysContagemResultados[i] = -1;
-      }
-    }
-
-    let keysContagemResultadosString = keysContagemResultados.filter(value => value != -1).map(value => value.toString());
-
-    return keysContagemResultadosString;
-  }
-
   public mudarTemporada(selectChange: MatSelectChange){
     this.temporadaSelecionada = selectChange.value;
 
@@ -197,6 +179,14 @@ export class DashboardComponentComponent {
   }
 
   public getBackgroundColor(): string{
-    return backgroundColorPilotos.find(piloto => this.nomeDoPiloto == piloto.nome)!.classe;
+    return coresPilotos.find(piloto => this.nomeDoPiloto == piloto.nome)!.classe;
+  }
+
+  public getBackgroundLineColor(): string{
+    return coresPilotos.find(piloto => this.nomeDoPiloto == piloto.nome)!.backgroundColor;
+  }
+
+  public getBorderLineColor(): string{
+    return coresPilotos.find(piloto => this.nomeDoPiloto == piloto.nome)!.borderColor;
   }
 }

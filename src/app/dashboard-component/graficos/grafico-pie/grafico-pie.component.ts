@@ -22,9 +22,6 @@ export class GraficoPieComponent {
    TooltipItem<keyof ChartTypeRegistry>>>;
 
   @Input()
-  public datasetLabelPieChart!: string;
-
-  @Input()
   public labelsPieChart!: string[];
 
   public pieChartOptions: ChartConfiguration['options'] = {

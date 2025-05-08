@@ -16,6 +16,8 @@
           [lineChartDataConfig]="resultadosEmTemporadaChartConfig"
           [lineChartOptionsPlugins]="getPluginsResultadosEmTemporadaLineChart()"
           [maxYValue]="20"
+          [backgroundLineColor]="getBackgroundLineColor()"
+          [borderLineColor]="getBorderLineColor()"
           >
           </app-grafico-de-linha>
         </mat-card-content>
@@ -27,6 +29,8 @@
           [lineChartDataConfig]="podiosPorTemporadaChartConfig"
           [lineChartOptionsPlugins]="getPluginsResultadosPorTemporadaLineChart('Pódios em')"
           [maxYValue]="24"
+          [backgroundLineColor]="getBackgroundLineColor()"
+          [borderLineColor]="getBorderLineColor()"
           >
           </app-grafico-de-linha>
         </mat-card-content>
@@ -37,6 +41,8 @@
           <app-grafico-de-linha
           [lineChartDataConfig]="pontosPorTemporadaChartConfig"
           [lineChartOptionsPlugins]="getPluginsResultadosPorTemporadaLineChart('Pontos em')"
+          [backgroundLineColor]="getBackgroundLineColor()"
+          [borderLineColor]="getBorderLineColor()"
           >
           </app-grafico-de-linha>
         </mat-card-content>
@@ -48,7 +54,6 @@
           <app-grafico-pie
           [pieChartDataConfig]="resultadosEmTemporadaPieChartConfig"
           [tooltipCallbacks]="getResultadosEmTemporadaTooltipCallbacks()"
-          [datasetLabelPieChart]="'Chegadas na posicao: '"
           >
           </app-grafico-pie>
         </mat-card-content>

@@ -21,6 +21,12 @@ export class GraficoDeLinhaComponent {
   @Input()
   public maxYValue!: number;
 
+  @Input()
+  public backgroundLineColor!: string;
+
+  @Input()
+  public borderLineColor!: string;
+
   public lineChartType: ChartType = 'line';
 
   public lineChartOptions: ChartConfiguration['options'] = {
@@ -38,6 +44,9 @@ export class GraficoDeLinhaComponent {
         data: [],
         fill: 'origin',
         pointHoverBorderColor: 'rgba(148,159,177,0.8)',
+        backgroundColor: '#ff0000',
+        borderColor: '#00ff00',
+        pointBackgroundColor: '#000',
       }
     ]
   }
@@ -62,6 +71,8 @@ export class GraficoDeLinhaComponent {
   private configurarChartData(){
     this.chartData.datasets[0].data = this.lineChartDataConfig.datasetData;
     this.chartData.datasets[0].label = this.lineChartDataConfig.datasetLabel;
+    this.chartData.datasets[0].backgroundColor = this.backgroundLineColor;
+    this.chartData.datasets[0].borderColor = this.borderLineColor;
     this.chartData.labels = this.lineChartDataConfig.labels;
 
     this.chart?.update();
