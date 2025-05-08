@@ -2,6 +2,7 @@ import { Component, Input, SimpleChanges, ViewChild, ViewChildren } from '@angul
 import { ChartConfiguration, ChartType, ChartTypeRegistry, PluginOptionsByType } from 'chart.js';
 import { _DeepPartialObject } from 'chart.js/dist/types/utils';
 import { BaseChartDirective } from 'ng2-charts';
+import { LineChartConfig } from 'src/app/models/LineChartConfig';
 
 @Component({
   selector: 'app-grafico-de-linha',
@@ -12,7 +13,7 @@ export class GraficoDeLinhaComponent {
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
   @Input()
-  public resultados!: ChartConfiguration['data'];
+  public lineChartDataConfig!: LineChartConfig;
 
   @Input()
   public lineChartOptionsPlugins!: _DeepPartialObject<PluginOptionsByType<keyof ChartTypeRegistry>>;
@@ -30,8 +31,21 @@ export class GraficoDeLinhaComponent {
     },
   }
 
+  public chartData: ChartConfiguration['data'] = {
+    datasets: [
+      {
+        label: '',
+        data: [],
+        fill: 'origin',
+        pointHoverBorderColor: 'rgba(148,159,177,0.8)',
+      }
+    ]
+  }
+
   ngOnChanges(changes: SimpleChanges){
+    console.log(this.lineChartDataConfig);
     this.configurarOptions();
+    this.configurarChartData();
     this.chart?.update();
   }
 
@@ -44,5 +58,13 @@ export class GraficoDeLinhaComponent {
         max: this.maxYValue
       }
     }
+  }
+
+  private configurarChartData(){
+    this.chartData.datasets[0].data = this.lineChartDataConfig.datasetData;
+    this.chartData.datasets[0].label = this.lineChartDataConfig.datasetLabel;
+    this.chartData.labels = this.lineChartDataConfig.labels;
+
+    this.chart?.update();
   }
 }

@@ -5,6 +5,7 @@ import { BaseChartDirective } from 'ng2-charts';
 import { DashboardService } from './dashboard.service';
 import { MatSelectChange } from '@angular/material/select';
 import { _DeepPartialObject } from 'chart.js/dist/types/utils';
+import { LineChartConfig } from '../models/LineChartConfig';
 
 const backgroundColorPilotos = [
   {nome: 'leclerc', classe:'leclerc-bg-color'},
@@ -15,7 +16,7 @@ const backgroundColorPilotos = [
   selector: 'app-dashboard-component',
   templateUrl: './dashboard-component.component.html',
   styleUrls: ['./dashboard-component.component.css'],
-  providers: [ DashboardService ]
+  providers: [ DashboardService, LineChartConfig ]
 })
 export class DashboardComponentComponent {
   private nomeDoPiloto: string = '';
@@ -25,11 +26,9 @@ export class DashboardComponentComponent {
 
   @ViewChildren(BaseChartDirective) charts?: QueryList<BaseChartDirective>;
 
-  public labelsTemporada: string[] = []
-
-  public labelsZonaDeClassificacao = [
-    'Q1', 'Q2', 'Q3'
-  ]
+  public resultadosEmTemporadaChartConfig: LineChartConfig = new LineChartConfig();
+  public podiosPorTemporadaChartConfig: LineChartConfig = new LineChartConfig();
+  public pontosPorTemporadaChartConfig: LineChartConfig = new LineChartConfig();
 
   public zonasDeClassificacao: ChartConfiguration['data'] = {
     datasets: [
@@ -55,45 +54,9 @@ export class DashboardComponentComponent {
     labels: []
   }
 
-  public resultadosEmTemporada: ChartConfiguration['data'] = {
-    datasets: [
-      {
-        label: '',
-        data: [],
-        fill: 'origin',
-        pointHoverBorderColor: 'rgba(148,159,177,0.8)',
-      }
-    ],
-    labels: []
-  }
-
-  public podiosPorTemporada: ChartConfiguration['data'] = {
-    datasets: [
-      {
-        label: 'Pódios por temporada',
-        data: [],
-        fill: 'origin',
-        pointHoverBorderColor: 'rgba(148,159,177,0.8)',
-      }
-    ],
-    labels: []
-  }
-
-  public pontosPorTemporada: ChartConfiguration['data'] = {
-    datasets: [
-      {
-        label: 'Pontos por temporada',
-        data: [],
-        fill: 'origin',
-        pointHoverBorderColor: 'rgba(148,159,177,0.8)',
-      }
-    ],
-    labels: []
-  }
-
   constructor(
     private activatedRoute: ActivatedRoute,
-    private dashboardService: DashboardService
+    private dashboardService: DashboardService,
   ){}
 
   ngOnInit(){
@@ -164,9 +127,9 @@ export class DashboardComponentComponent {
 
   private getDadosParaGraficos(): void{
     this.dashboardService.getAnosCompetidos(this.nomeDoPiloto).subscribe(anosArr =>{
-      this.anos = anosArr
-      this.podiosPorTemporada.labels = [...anosArr];
-      this.pontosPorTemporada.labels = [...anosArr];
+      this.anos = anosArr;
+      this.podiosPorTemporadaChartConfig.labels = [...anosArr];
+      this.pontosPorTemporadaChartConfig.labels = [...anosArr];
       this.temporadaSelecionada = this.temporadaSelecionada ? this.temporadaSelecionada : anosArr[anosArr.length - 1];
 
       this.getResultadosEmTemporada();
@@ -182,9 +145,9 @@ export class DashboardComponentComponent {
 
     this.dashboardService.getResultadosEmTemporadaSelecionada(this.nomeDoPiloto, indiceTemporada)
       .subscribe(resultados => {
-        this.resultadosEmTemporada.labels = Array.from({length: resultados.posicoesEmCorrida.length}, (_, i) => (i+1).toString())
-        this.resultadosEmTemporada.datasets[0].data = resultados.posicoesEmCorrida
-        this.resultadosEmTemporada.datasets[0].label = `Resultados em ${this.temporadaSelecionada}`;
+        this.resultadosEmTemporadaChartConfig.labels = Array.from({length: resultados.posicoesEmCorrida.length}, (_, i) => (i+1).toString());
+        this.resultadosEmTemporadaChartConfig.datasetData = resultados.posicoesEmCorrida;
+        this.resultadosEmTemporadaChartConfig.datasetLabel = `Resultados em ${this.temporadaSelecionada}`;
 
         let contagemResultadosEmCorrida: number[] = [];
         let contagemResultadosEmClassificacao: number[] = [];
@@ -205,10 +168,11 @@ export class DashboardComponentComponent {
 
   private getResultadosEmCarreira(): void{
     this.dashboardService.getResultadosEmCarreira(this.nomeDoPiloto).subscribe(resultados =>{
-      this.podiosPorTemporada.datasets[0].data = resultados.podiosPorTemporada;
-      this.pontosPorTemporada.datasets[0].data = resultados.pontosPorTemporada;
+      this.podiosPorTemporadaChartConfig.datasetData = resultados.podiosPorTemporada;
+      this.podiosPorTemporadaChartConfig.datasetLabel = 'Pódios por temporada';
 
-      this.charts?.forEach(chart => chart.update());
+      this.pontosPorTemporadaChartConfig.datasetData = resultados.pontosPorTemporada;
+      this.pontosPorTemporadaChartConfig.datasetLabel = 'Pontos por temporada';
     })
   }
 

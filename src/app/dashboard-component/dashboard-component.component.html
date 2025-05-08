@@ -13,7 +13,7 @@
       <mat-card class="line-chart">
         <mat-card-content>
           <app-grafico-de-linha
-          [resultados]="resultadosEmTemporada"
+          [lineChartDataConfig]="resultadosEmTemporadaChartConfig"
           [lineChartOptionsPlugins]="getPluginsResultadosEmTemporadaLineChart()"
           [maxYValue]="20"
           >
@@ -24,7 +24,7 @@
       <mat-card class="line-chart">
         <mat-card-content>
           <app-grafico-de-linha
-          [resultados]="podiosPorTemporada"
+          [lineChartDataConfig]="podiosPorTemporadaChartConfig"
           [lineChartOptionsPlugins]="getPluginsResultadosPorTemporadaLineChart('Pódios em')"
           [maxYValue]="24"
           >
@@ -35,7 +35,7 @@
       <mat-card class="line-chart">
         <mat-card-content>
           <app-grafico-de-linha
-          [resultados]="pontosPorTemporada"
+          [lineChartDataConfig]="pontosPorTemporadaChartConfig"
           [lineChartOptionsPlugins]="getPluginsResultadosPorTemporadaLineChart('Pontos em')"
           >
           </app-grafico-de-linha>
