@@ -15,7 +15,8 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { HttpClientModule } from '@angular/common/http';
 import { GraficoDeLinhaComponent } from './dashboard-component/graficos/grafico-de-linha/grafico-de-linha.component';
-import { GraficoPieComponent } from './dashboard-component/graficos/grafico-pie/grafico-pie.component'
+import { GraficoPieComponent } from './dashboard-component/graficos/grafico-pie/grafico-pie.component';
+import { PilotoDisplayComponent } from './dashboard-component/piloto-display/piloto-display.component'
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { GraficoPieComponent } from './dashboard-component/graficos/grafico-pie/
     MenuComponentComponent,
     DashboardComponentComponent,
     GraficoDeLinhaComponent,
-    GraficoPieComponent
+    GraficoPieComponent,
+    PilotoDisplayComponent
   ],
   imports: [
     BrowserModule,

@@ -1,17 +1,8 @@
 <div class="dashboard-body">
-  <div class="piloto-container {{getBackgroundColor()}}">
-    <img class="img-piloto" src="{{getPathPilotoImg()}}" alt="Max Verstappen">
-    <div class="nome-piloto-container">
-      <span id="nome-piloto">{{getnomeDisplayPiloto()}}</span>
-      <span id="sobrenome-piloto">{{getSobrenomeDisplayPiloto()}}</span>
-    </div>
-    <div class="img-equipe-container">
-      <img class="img-equipe" src="{{getPathEquipeLogoImg()}}" alt="logo equipe">
-    </div>
-    <div class="detalhe-triangulo {{getSecondaryBackgroundColor()}}"></div>
-  </div>
-  <!-- <img class="img-carro" src="../../assets/RB20.png" alt="Carro de F1"> -->
-  <img class="img-carro" src="{{getPathCarroImg()}}" alt="Carro de F1">
+  <app-piloto-display
+  [nomeDoPiloto]="nomeDoPiloto"
+  >
+  </app-piloto-display>
 
   <h1>Estatísticas</h1>
 

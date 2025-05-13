@@ -1,0 +1,74 @@
+
+.piloto-container{
+  padding-top: 2rem;
+  width: 100%;
+  display: flex;
+}
+
+.img-equipe{
+  width: 300px;
+  position: absolute;
+  top: 5%;
+  right: 5%;
+}
+
+.detalhe-triangulo{
+  width: 100%;
+  clip-path: polygon(100% 60%, 28% 100%, 100% 100%);
+}
+
+.img-carro{
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 750px;
+}
+
+.nome-piloto-container{
+  display: flex;
+  flex-direction: column;
+  padding-top: 2rem;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+#sobrenome-piloto{
+  color: white;
+  font-size: 4rem;
+  font-weight: bold;
+}
+
+#nome-piloto{
+  display: flex;
+  padding-top: 1.5rem;
+  justify-content: flex-end;
+  font-size: 2rem;
+  font-weight: 100;
+  color: white;
+}
+
+
+.leclerc-bg-color{
+  background-color: #C3151C;
+}
+
+.verstappen-bg-color{
+  background-color: #001344;
+}
+
+.norris-bg-color{
+  background-color: #DA7223;
+}
+
+.leclerc-secondary-bg-color{
+  background: #FFF200;
+}
+
+.verstappen-secondary-bg-color{
+  background: #E30118;
+}
+
+.norris-secondary-bg-color{
+  background: #000;
+}
