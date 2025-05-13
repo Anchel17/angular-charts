@@ -6,10 +6,22 @@ import { MatSelectChange } from '@angular/material/select';
 import { _DeepPartialObject } from 'chart.js/dist/types/utils';
 import { ChartDataConfig } from '../models/ChartDataConfig';
 
-const coresPilotos = [
-  {nome: 'leclerc', classe:'leclerc-bg-color', 'backgroundColor': '#fcabad', 'borderColor': '#C3151C'},
-  {nome: 'verstappen', classe:'verstappen-bg-color', 'backgroundColor': '#7c9ae8', 'borderColor': '#223971'},
-  {nome: 'norris', classe:'norris-bg-color', 'backgroundColor': '#f1c3a0', 'borderColor': '#DA7223'}
+const infoPilotos = [
+  {
+    nome: 'leclerc', classe:'leclerc-bg-color', carroImgPath: '../../assets/SF24-GRANDE.png', pilotoImgPath: '../../assets/Leclerc-dashboard.png',
+    backgroundColor: '#fcabad', secondaryBgColorClass: 'leclerc-secondary-bg-color', borderColor: '#C3151C',
+    nomeDisplay: 'Charles', sobrenomeDisplay: 'Leclerc', logoEquipeImgPath: '../../assets/ferrari-logo.png'
+  },
+  {
+    nome: 'verstappen', classe:'verstappen-bg-color', carroImgPath: '../../assets/RB20-GRANDE.png', pilotoImgPath: '../../assets/Verstappen-dashboard.png',
+    backgroundColor: '#7c9ae8', secondaryBgColorClass: 'verstappen-secondary-bg-color', borderColor: '#223971',
+    nomeDisplay: 'Max', sobrenomeDisplay: 'Verstappen', logoEquipeImgPath: '../../assets/red-bull-logo.png'
+  },
+  {
+    nome: 'norris', classe:'norris-bg-color', carroImgPath: '../../assets/MCL38-GRANDE.png', pilotoImgPath: '../../assets/Norris-dashboard.png',
+    backgroundColor: '#f1c3a0', secondaryBgColorClass: 'norris-secondary-bg-color', borderColor: '#DA7223',
+    nomeDisplay: 'Lando', sobrenomeDisplay: 'Norris', logoEquipeImgPath: '../../assets/mclaren-logo.png'
+  }
 ];
 @Component({
   selector: 'app-dashboard-component',
@@ -179,14 +191,38 @@ export class DashboardComponentComponent {
   }
 
   public getBackgroundColor(): string{
-    return coresPilotos.find(piloto => this.nomeDoPiloto == piloto.nome)!.classe;
+    return infoPilotos.find(piloto => this.nomeDoPiloto == piloto.nome)!.classe;
+  }
+
+  public getSecondaryBackgroundColor(){
+    return infoPilotos.find(piloto => this.nomeDoPiloto == piloto.nome)!.secondaryBgColorClass;
   }
 
   public getBackgroundLineColor(): string{
-    return coresPilotos.find(piloto => this.nomeDoPiloto == piloto.nome)!.backgroundColor;
+    return infoPilotos.find(piloto => this.nomeDoPiloto == piloto.nome)!.backgroundColor;
   }
 
-  public getBorderLineColor(): string{
-    return coresPilotos.find(piloto => this.nomeDoPiloto == piloto.nome)!.borderColor;
+  public getChartColor(): string{
+    return infoPilotos.find(piloto => this.nomeDoPiloto == piloto.nome)!.borderColor;
+  }
+
+  public getPathPilotoImg(): string{
+    return infoPilotos.find(piloto => this.nomeDoPiloto == piloto.nome)!.pilotoImgPath;
+  }
+
+  public getPathCarroImg(): string{
+    return infoPilotos.find(piloto => this.nomeDoPiloto == piloto.nome)!.carroImgPath;
+  }
+
+  public getPathEquipeLogoImg(): string{
+    return infoPilotos.find(piloto => this.nomeDoPiloto == piloto.nome)!.logoEquipeImgPath;
+  }
+
+  public getnomeDisplayPiloto(): string{
+    return infoPilotos.find(piloto => this.nomeDoPiloto == piloto.nome)!.nomeDisplay;
+  }
+
+  public getSobrenomeDisplayPiloto(): string{
+    return infoPilotos.find(piloto => this.nomeDoPiloto == piloto.nome)!.sobrenomeDisplay;
   }
 }

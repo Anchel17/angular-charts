@@ -1,4 +1,20 @@
-<div class="dashboard-body {{getBackgroundColor()}}">
+<div class="dashboard-body">
+  <div class="piloto-container {{getBackgroundColor()}}">
+    <img class="img-piloto" src="{{getPathPilotoImg()}}" alt="Max Verstappen">
+    <div class="nome-piloto-container">
+      <span id="nome-piloto">{{getnomeDisplayPiloto()}}</span>
+      <span id="sobrenome-piloto">{{getSobrenomeDisplayPiloto()}}</span>
+    </div>
+    <div class="img-equipe-container">
+      <img class="img-equipe" src="{{getPathEquipeLogoImg()}}" alt="logo equipe">
+    </div>
+    <div class="detalhe-triangulo {{getSecondaryBackgroundColor()}}"></div>
+  </div>
+  <!-- <img class="img-carro" src="../../assets/RB20.png" alt="Carro de F1"> -->
+  <img class="img-carro" src="{{getPathCarroImg()}}" alt="Carro de F1">
+
+  <h1>Estatísticas</h1>
+
   <div class="seleciona-temporada">
     <mat-form-field>
       <mat-label>Temporada</mat-label>
@@ -7,7 +23,6 @@
       </mat-select>
     </mat-form-field>
   </div>
-
   <div class="graficos-container">
     <div class="cards-container">
       <mat-card class="line-chart">
@@ -16,8 +31,7 @@
           [lineChartDataConfig]="resultadosEmTemporadaChartConfig"
           [lineChartOptionsPlugins]="getPluginsResultadosEmTemporadaLineChart()"
           [maxYValue]="20"
-          [backgroundLineColor]="getBackgroundLineColor()"
-          [borderLineColor]="getBorderLineColor()"
+          [chartColor]="getChartColor()"
           >
           </app-grafico-de-linha>
         </mat-card-content>
@@ -29,8 +43,7 @@
           [lineChartDataConfig]="podiosPorTemporadaChartConfig"
           [lineChartOptionsPlugins]="getPluginsResultadosPorTemporadaLineChart('Pódios em')"
           [maxYValue]="24"
-          [backgroundLineColor]="getBackgroundLineColor()"
-          [borderLineColor]="getBorderLineColor()"
+          [chartColor]="getChartColor()"
           >
           </app-grafico-de-linha>
         </mat-card-content>
@@ -41,8 +54,7 @@
           <app-grafico-de-linha
           [lineChartDataConfig]="pontosPorTemporadaChartConfig"
           [lineChartOptionsPlugins]="getPluginsResultadosPorTemporadaLineChart('Pontos em')"
-          [backgroundLineColor]="getBackgroundLineColor()"
-          [borderLineColor]="getBorderLineColor()"
+          [chartColor]="getChartColor()"
           >
           </app-grafico-de-linha>
         </mat-card-content>

@@ -1,12 +1,11 @@
 .dashboard-body{
-  height: 100vh;
-  overflow: hidden;
+  width: 100%;
+  background-color: #E5E5E5;
 }
 
 .seleciona-temporada{
   display: flex;
   justify-content: center;
-  padding-top: 2rem;
   width: 100%;
 }
 
@@ -15,19 +14,85 @@
 }
 
 .verstappen-bg-color{
-  background-color: #223971;
+  background-color: #001344;
 }
 
 .norris-bg-color{
   background-color: #DA7223;
 }
 
+.leclerc-secondary-bg-color{
+  background: #FFF200;
+}
+
+.verstappen-secondary-bg-color{
+  background: #E30118;
+}
+
+.norris-secondary-bg-color{
+  background: #000;
+}
+
+.dashboard-body h1{
+  padding-top: 250px;
+  text-align: center;
+}
+
+.piloto-container{
+  padding-top: 2rem;
+  width: 100%;
+  display: flex;
+}
+
+.img-equipe{
+  width: 300px;
+  position: absolute;
+  top: 5%;
+  right: 5%;
+}
+
+.detalhe-triangulo{
+  width: 100%;
+  clip-path: polygon(100% 60%, 28% 100%, 100% 100%);
+}
+
+.img-carro{
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 750px;
+}
+
+.nome-piloto-container{
+  display: flex;
+  flex-direction: column;
+  padding-top: 2rem;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+#sobrenome-piloto{
+  color: white;
+  font-size: 4rem;
+  font-weight: bold;
+}
+
+#nome-piloto{
+  display: flex;
+  padding-top: 1.5rem;
+  justify-content: flex-end;
+  font-size: 2rem;
+  font-weight: 100;
+  color: white;
+}
+
 .line-chart{
-  width: 30%;
+  min-width: 30%;
 }
 
 .pie-chart{
-  width: 30%;
+  min-width: 30%;
   text-align: center;
   font-weight: 500;
   padding: 1rem 0;
@@ -45,12 +110,12 @@
 
 .graficos-container{
   height: 100%;
+  padding-bottom: 2rem;
 }
 
 .cards-container{
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 2rem;
-  width: 100%;
 }

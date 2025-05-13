@@ -22,10 +22,7 @@ export class GraficoDeLinhaComponent {
   public maxYValue!: number;
 
   @Input()
-  public backgroundLineColor!: string;
-
-  @Input()
-  public borderLineColor!: string;
+  public chartColor!: string;
 
   public lineChartType: ChartType = 'line';
 
@@ -34,7 +31,7 @@ export class GraficoDeLinhaComponent {
       line: {
         tension: 0.1,
       },
-    },
+    }
   }
 
   public chartData: ChartConfiguration['data'] = {
@@ -64,6 +61,11 @@ export class GraficoDeLinhaComponent {
         position: 'left',
         min: 0,
         max: this.maxYValue
+      },
+      x: {
+        grid: {
+          display: false
+        }
       }
     }
   }
@@ -71,8 +73,8 @@ export class GraficoDeLinhaComponent {
   private configurarChartData(){
     this.chartData.datasets[0].data = this.lineChartDataConfig.datasetData;
     this.chartData.datasets[0].label = this.lineChartDataConfig.datasetLabel;
-    this.chartData.datasets[0].backgroundColor = this.backgroundLineColor;
-    this.chartData.datasets[0].borderColor = this.borderLineColor;
+    this.chartData.datasets[0].backgroundColor = this.chartColor;
+    this.chartData.datasets[0].borderColor = this.chartColor;
     this.chartData.labels = this.lineChartDataConfig.labels;
 
     this.chart?.update();
