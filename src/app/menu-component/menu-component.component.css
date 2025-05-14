@@ -1,14 +1,59 @@
-.cards-container{
-  width: 100vw;
-  display: flex;
+.about-text{
+  text-align: center;
   position: absolute;
-  top: 20%;
+  color: #fff;
+  width: 100%;
+  padding-top: 1rem;
+}
+
+.cards-wrapper{
+  background: url('../../assets/menu-background.png');
+  background-position: center center;
+  background-size: cover;
+  background-repeat: repeat-y;
+  height: 100vh;
+  display: flex;
+}
+
+.card::before{
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 45%; /* altura do sombreado */
+  background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 1));
+  pointer-events: none;
+  z-index: 1;
+}
+
+.cards-container{
+  width: 100%;
+  height: 90%;
+  display: flex;
+  align-items: center;
   justify-content: center;
   gap: 3rem;
+  padding-top: 2rem;
 }
 
 .card{
-  width: 20%;
+  min-width: 20%;
+  height: 60%;
+  background-position: center center;
+  background-size: cover;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.card:hover{
+  cursor: pointer;
+  transition-duration: .3s;
+  transform: scale(1.05);
 }
 
 .card-image{
@@ -31,21 +76,40 @@
   font-weight: 500;
 }
 
-#leclerc-button{
-  background-color: #D00133;
-  color: #fff;
+.angular-icon{
+  width: 3%;
 }
 
-#verstappen-button{
-  background-color: #223971;
-  color: #fff;
-}
-
-#norris-button{
-  background-color: #DA7223;
-  color: #fff;
-}
-
-::ng-deep .mat-mdc-card-header{
+.title{
+  display: flex;
   justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 1rem;
+  font-size: x-large;
+  font-weight: bold;
+}
+
+.about{
+  font-size: 24px;
+}
+
+.driver-name{
+  color: #FFF;
+  font-size: xx-large;
+  position: relative;
+  bottom: 20%;
+  z-index: 2;
+}
+
+#leclerc-card{
+  background-image: url('../../assets/leclerc-menu.png'), url('../../assets/leclerc-card-background.png');
+}
+
+#verstappen-card{
+  background-image: url('../../assets/verstappen-menu.png'), url('../../assets/verstappen-card-background.png');
+}
+
+#norris-card{
+  background-image: url('../../assets/norris-menu.png'), url('../../assets/norris-card-background.png');
 }

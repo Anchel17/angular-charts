@@ -1,49 +1,30 @@
-<div class="cards-container">
-  <mat-card class="card">
-    <mat-card-header class="card-header">
-      <mat-card-title class="card-title">
-        <p>Charles Leclerc</p>
-      </mat-card-title>
-    </mat-card-header>
-    <img class="card-image" src="../../assets/leclerc.jpg" alt="Charles Leclerc">
-    <mat-card-content class="card-content">
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus architecto modi laudantium perferendis corporis,
-        expedita porro veritatis voluptatum. Voluptatibus error modi amet beatae veritatis! Quod provident delectus aperiam. Vitae, ad.</p>
-    </mat-card-content>
-    <mat-card-actions class="card-actions">
-      <button mat-raised-button id="leclerc-button" (click)="irParaDashboard('leclerc')">Saiba mais</button>
-    </mat-card-actions>
-  </mat-card>
+<div class="about-text">
+  <h1 class="title">
+    <img class="angular-icon" src="../../assets/angular-icon.svg" alt="Angular icon">
+    Angular Drivers Stats
+  </h1>
+  <span class="about">
+    Escolha um dos pilotos para ver seus resultados ao longo de suas carreiras.
+  </span>
+</div>
+<div class="cards-wrapper">
+  <div class="cards-container">
+    <mat-card class="card" id="verstappen-card" (click)="irParaDashboard('verstappen')">
+      <mat-card-content class="card-content">
+        <span class="driver-name">Max Verstappen</span>
+      </mat-card-content>
+    </mat-card>
 
-  <mat-card class="card">
-    <mat-card-header class="card-header">
-      <mat-card-title class="card-title">
-        <p>Max Verstappen</p>
-      </mat-card-title>
-    </mat-card-header>
-    <img class="card-image" src="../../assets/Verstappen.jpg" alt="Max Verstappen">
-    <mat-card-content class="card-content">
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus architecto modi laudantium perferendis corporis,
-        expedita porro veritatis voluptatum. Voluptatibus error modi amet beatae veritatis! Quod provident delectus aperiam. Vitae, ad.</p>
-    </mat-card-content>
-    <mat-card-actions class="card-actions">
-      <button mat-raised-button id="verstappen-button" (click)="irParaDashboard('verstappen')">Saiba mais</button>
-    </mat-card-actions>
-  </mat-card>
+    <mat-card class="card" id="leclerc-card" (click)="irParaDashboard('leclerc')">
+      <mat-card-content class="card-content">
+        <span class="driver-name">Charles Leclerc</span>
+      </mat-card-content>
+    </mat-card>
 
-  <mat-card class="card">
-    <mat-card-header class="card-header">
-      <mat-card-title class="card-title">
-        <p>Norris</p>
-      </mat-card-title>
-    </mat-card-header>
-    <img class="card-image" src="../../assets/Norris.jpg" alt="Lando Norris">
-    <mat-card-content class="card-content">
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus architecto modi laudantium perferendis corporis,
-        expedita porro veritatis voluptatum. Voluptatibus error modi amet beatae veritatis! Quod provident delectus aperiam. Vitae, ad.</p>
-    </mat-card-content>
-    <mat-card-actions class="card-actions">
-      <button mat-raised-button id="norris-button" (click)="irParaDashboard('norris')">Saiba mais</button>
-    </mat-card-actions>
-  </mat-card>
+    <mat-card class="card" id="norris-card" (click)="irParaDashboard('norris')">
+      <mat-card-content class="card-content">
+        <span class="driver-name">Lando Norris</span>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>
