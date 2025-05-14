@@ -1,3 +1,9 @@
+.menu-container{
+  background: url('../../assets/menu-background.png');
+  background-position: center center;
+  background-size: cover;
+}
+
 .about-text{
   text-align: center;
   position: absolute;
@@ -7,10 +13,6 @@
 }
 
 .cards-wrapper{
-  background: url('../../assets/menu-background.png');
-  background-position: center center;
-  background-size: cover;
-  background-repeat: repeat-y;
   height: 100vh;
   display: flex;
 }
@@ -38,7 +40,7 @@
 }
 
 .card{
-  min-width: 20%;
+  width: 20%;
   height: 60%;
   background-position: center center;
   background-size: cover;
@@ -112,4 +114,41 @@
 
 #norris-card{
   background-image: url('../../assets/norris-menu.png'), url('../../assets/norris-card-background.png');
+}
+
+@media (max-width: 850px){
+  .menu-container{
+    height: 100%;
+    padding-bottom: 1rem;
+  }
+
+  .about-text{
+    position: relative;
+  }
+
+  .cards-container{
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .cards-wrapper{
+    height: max-content;
+  }
+
+  .card{
+    width: 300px;
+    height: 70vh;
+  }
+}
+
+@media (max-width: 350px){
+  .menu-container{
+    height: 100%;
+    padding-bottom: 1rem;
+  }
+
+  .card{
+    width: 250px;
+    height: 60vh;
+  }
 }
