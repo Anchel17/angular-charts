@@ -1,4 +1,4 @@
-import { Component, Input, SimpleChanges, ViewChild, ViewChildren } from '@angular/core';
+import { Component, HostListener, Input, SimpleChanges, ViewChild, ViewChildren } from '@angular/core';
 import { ChartConfiguration, ChartType, ChartTypeRegistry, PluginOptionsByType } from 'chart.js';
 import { _DeepPartialObject } from 'chart.js/dist/types/utils';
 import { BaseChartDirective } from 'ng2-charts';
@@ -31,7 +31,11 @@ export class GraficoDeLinhaComponent {
       line: {
         tension: 0.1,
       },
-    }
+    },
+    animation: false,
+    responsive: true,
+    maintainAspectRatio: false,
+    devicePixelRatio: 1.5
   }
 
   public chartData: ChartConfiguration['data'] = {
@@ -46,6 +50,11 @@ export class GraficoDeLinhaComponent {
         pointBackgroundColor: '#000',
       }
     ]
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event){
+    this.chart?.render();
   }
 
   ngOnChanges(changes: SimpleChanges){

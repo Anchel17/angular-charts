@@ -8,7 +8,7 @@
 .img-equipe{
   width: 300px;
   position: absolute;
-  top: 5%;
+  top: 50px;
   right: 5%;
 }
 
@@ -19,7 +19,7 @@
 
 .img-carro{
   position: absolute;
-  top: 15%;
+  top: 150px;
   left: 50%;
   transform: translateX(-50%);
   width: 750px;
@@ -50,15 +50,18 @@
 
 
 .leclerc-bg-color{
-  background-color: #C3151C;
+  background-image: url('../../../assets/leclerc-card-background.png');
+  background-size: cover;
 }
 
 .verstappen-bg-color{
-  background-color: #001344;
+  background-image: url('../../../assets/verstappen-card-background.png');
+  background-size: cover;
 }
 
 .norris-bg-color{
-  background-color: #DA7223;
+  background-image: url('../../../assets/norris-display-bg.png');
+  background-size: cover;
 }
 
 .leclerc-secondary-bg-color{
@@ -71,4 +74,135 @@
 
 .norris-secondary-bg-color{
   background: #000;
+}
+
+@media (max-width: 1500px){
+  .img-carro{
+    top: 100px;
+    width: 600px;
+  }
+
+  .img-piloto{
+    width: 350px;
+  }
+}
+
+@media (max-width: 1050px){
+ .img-carro{
+    width: 500px;
+  }
+
+  .img-piloto{
+    width: 300px;
+  }
+
+  .img-equipe{
+    width: 200px;
+    position: absolute;
+    top: 75px;
+    right: 5%;
+  }
+
+  #sobrenome-piloto{
+    font-size: 3rem;
+  }
+
+  #nome-piloto{
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 800px){
+  .img-carro{
+    width: 300px;
+    top: 75px;
+  }
+
+  .img-piloto{
+    width: 200px;
+  }
+
+  .img-equipe{
+    width: 150px;
+    position: absolute;
+    top: 50px;
+    right: 5%;
+  }
+
+  .nome-piloto-container{
+    padding-top: 1rem;
+
+    gap: 1rem;
+  }
+
+  #sobrenome-piloto{
+    font-size: 2rem;
+  }
+
+  #nome-piloto{
+    padding-top: 0;
+  }
+}
+
+
+@media (max-width: 550px){
+  .img-carro{
+    width: 200px;
+    top: 70px;
+  }
+
+  .img-piloto{
+    width: 150px;
+  }
+
+  .img-equipe{
+    width: 125px;
+    top: 30px;
+  }
+
+  .nome-piloto-container{
+    padding-top: .5rem;
+    gap: .5rem;
+  }
+
+  #sobrenome-piloto{
+    font-size: 1.5rem;
+  }
+
+  #nome-piloto{
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 400px){
+  .piloto-container{
+    padding-top: 1.5rem;
+  }
+
+  .img-carro{
+    width: 150px;
+    top: 50px;
+  }
+
+  .img-piloto{
+    width: 100px;
+  }
+
+  .img-equipe{
+    width: 100px;
+    top: 30px;
+  }
+
+  .nome-piloto-container{
+    padding-top: .5rem;
+    gap: .2rem;
+  }
+
+  #sobrenome-piloto{
+    font-size: 1rem;
+  }
+
+  #nome-piloto{
+    font-size: .7rem;
+  }
 }

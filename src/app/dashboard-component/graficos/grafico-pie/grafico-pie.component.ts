@@ -1,4 +1,4 @@
-import { Component, Input, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, HostListener, Input, SimpleChanges, ViewChild } from '@angular/core';
 import { ChartConfiguration, ChartType, ChartTypeRegistry, TooltipCallbacks, TooltipItem, TooltipModel } from 'chart.js';
 import { _DeepPartialObject } from 'chart.js/dist/types/utils';
 import { BaseChartDirective } from 'ng2-charts';
@@ -38,7 +38,8 @@ export class GraficoPieComponent {
       tooltip: {
         callbacks: {}
       }
-    }
+    },
+    animation: false
   }
 
   public pieChartData: ChartConfiguration['data'] = {
@@ -53,19 +54,24 @@ export class GraficoPieComponent {
     labels: []
   }
 
-    ngOnChanges(changes: SimpleChanges){
-      this.configurarOptions();
-      this.configurarChartData();
-      this.chart?.update();
-    }
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event){
+    this.chart?.render();
+  }
 
-    private configurarOptions(){
-      this.pieChartOptions!.plugins!.tooltip!.callbacks = this.tooltipCallbacks;
-    }
+  ngOnChanges(changes: SimpleChanges){
+    this.configurarOptions();
+    this.configurarChartData();
+    this.chart?.update();
+  }
 
-    private configurarChartData(){
-      this.pieChartData.datasets[0].data = this.pieChartDataConfig.datasetData;
-      this.pieChartData.datasets[0].label = this.pieChartDataConfig.datasetLabel;
-      this.pieChartData.labels = this.labelsPieChart ? this.labelsPieChart : this.pieChartDataConfig.labels;
-    }
+  private configurarOptions(){
+    this.pieChartOptions!.plugins!.tooltip!.callbacks = this.tooltipCallbacks;
+  }
+
+  private configurarChartData(){
+    this.pieChartData.datasets[0].data = this.pieChartDataConfig.datasetData;
+    this.pieChartData.datasets[0].label = this.pieChartDataConfig.datasetLabel;
+    this.pieChartData.labels = this.labelsPieChart ? this.labelsPieChart : this.pieChartDataConfig.labels;
+  }
 }

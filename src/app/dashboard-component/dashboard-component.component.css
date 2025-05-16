@@ -28,7 +28,7 @@
 .pie-chart .mat-mdc-card-content{
   margin: auto;
   padding: .5rem 0;
-  width: 70%;
+  min-width: 70%;
 }
 
 .pie-chart .mat-mdc-card-content span{
@@ -45,4 +45,50 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 2rem;
+}
+
+
+@media (max-width: 800px){
+  .dashboard-body h1{
+    padding-top: 150px;
+  }
+
+  .cards-container{
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .line-chart{
+    min-width: 50%;
+  }
+
+  .pie-chart{
+    min-width: 50%;
+  }
+
+  .pie-chart .mat-mdc-card-content{
+    min-width: 100%;
+  }
+}
+
+@media (max-width: 550px){
+  .dashboard-body h1{
+    padding-top: 100px;
+  }
+}
+
+@media (max-width: 400px){
+  .dashboard-body h1{
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 325px){
+  .line-chart{
+    width: 300px;
+  }
+
+  .pie-chart{
+    width: 300px;
+  }
 }
