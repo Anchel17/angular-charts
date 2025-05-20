@@ -54,23 +54,25 @@
       <mat-card class="pie-chart">
         <span>{{getTextoResultadosEmTemporadaSelecionada('Resultados em')}}</span>
         <mat-card-content>
-          <app-grafico-pie
+          <app-grafico-doughnut
           [pieChartDataConfig]="resultadosEmTemporadaPieChartConfig"
           [tooltipCallbacks]="getResultadosEmTemporadaTooltipCallbacks()"
+          [chartColors]="getDoughnutChartColors()"
           >
-          </app-grafico-pie>
+          </app-grafico-doughnut>
         </mat-card-content>
       </mat-card>
 
       <mat-card class="pie-chart">
         <span>{{getTextoResultadosEmTemporadaSelecionada('Zonas de classificação em')}}</span>
         <mat-card-content>
-          <app-grafico-pie
+          <app-grafico-doughnut
           [pieChartDataConfig]="zonasDeClassificacaoPieChartConfig"
           [labelsPieChart]="['Q1', 'Q2', 'Q3']"
           [tooltipCallbacks]="getZonasDeClassificacaoTooltipCallbacks()"
+          [chartColors]="getDoughnutChartColors()"
           >
-          </app-grafico-pie>
+          </app-grafico-doughnut>
         </mat-card-content>
       </mat-card>
     </div>

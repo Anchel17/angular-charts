@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GraficoPieComponent } from './grafico-pie.component';
+import { GraficoDoughnutComponent } from './grafico-doughnut.component';
 
 describe('GraficoPieComponent', () => {
-  let component: GraficoPieComponent;
-  let fixture: ComponentFixture<GraficoPieComponent>;
+  let component: GraficoDoughnutComponent;
+  let fixture: ComponentFixture<GraficoDoughnutComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [GraficoPieComponent]
+      declarations: [GraficoDoughnutComponent]
     });
-    fixture = TestBed.createComponent(GraficoPieComponent);
+    fixture = TestBed.createComponent(GraficoDoughnutComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

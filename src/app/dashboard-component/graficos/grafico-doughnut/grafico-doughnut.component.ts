@@ -5,12 +5,12 @@ import { BaseChartDirective } from 'ng2-charts';
 import { ChartDataConfig } from 'src/app/models/ChartDataConfig';
 
 @Component({
-  selector: 'app-grafico-pie',
-  templateUrl: './grafico-pie.component.html',
-  styleUrls: ['./grafico-pie.component.css']
+  selector: 'app-grafico-doughnut',
+  templateUrl: './grafico-doughnut.component.html',
+  styleUrls: ['./grafico-doughnut.component.css']
 })
-export class GraficoPieComponent {
-  public pieChartType: ChartType = 'pie';
+export class GraficoDoughnutComponent {
+  public pieChartType: ChartType = 'doughnut';
 
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
@@ -23,6 +23,9 @@ export class GraficoPieComponent {
 
   @Input()
   public labelsPieChart!: string[];
+
+  @Input()
+  public chartColors!: string[];
 
   public pieChartOptions: ChartConfiguration['options'] = {
     plugins: {
@@ -72,6 +75,7 @@ export class GraficoPieComponent {
   private configurarChartData(){
     this.pieChartData.datasets[0].data = this.pieChartDataConfig.datasetData;
     this.pieChartData.datasets[0].label = this.pieChartDataConfig.datasetLabel;
+    this.pieChartData.datasets[0].backgroundColor = this.chartColors;
     this.pieChartData.labels = this.labelsPieChart ? this.labelsPieChart : this.pieChartDataConfig.labels;
   }
 }

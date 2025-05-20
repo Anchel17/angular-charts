@@ -8,13 +8,13 @@ import { ChartDataConfig } from '../models/ChartDataConfig';
 
 const colorsPilotos = [
   {
-    nome: 'leclerc', borderColor: '#C3151C'
+    nome: 'leclerc', borderColor: '#C3151C', doughnutColors: ['#C3151C', '#CC3A40', '#D45D63', '#DD8187', '#E5A5AB', '#EEC8CE', '#F6EBF2']
   },
   {
-    nome: 'verstappen', borderColor: '#223971'
+    nome: 'verstappen', borderColor: '#223971', doughnutColors: ['#223971', '#40558A', '#5D71A3', '#7B8DBB', '#99A9D4', '#B6C5ED','#D3E1FF']
   },
   {
-    nome: 'norris', borderColor: '#DA7223'
+    nome: 'norris', borderColor: '#FF8000', doughnutColors: ['#FF8000', '#FF9933', '#FFB266', '#FFCC99', '#FFE0B3', '#FFF0D9', '#FFFAF0']
   }
 ];
 @Component({
@@ -188,4 +188,7 @@ export class DashboardComponentComponent {
     return colorsPilotos.find(piloto => this.nomeDoPiloto == piloto.nome)!.borderColor;
   }
 
+  public getDoughnutChartColors(){
+    return colorsPilotos.find(piloto => this.nomeDoPiloto == piloto.nome)!.doughnutColors;
+  }
 }

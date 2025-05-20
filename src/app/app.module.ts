@@ -15,7 +15,7 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { HttpClientModule } from '@angular/common/http';
 import { GraficoDeLinhaComponent } from './dashboard-component/graficos/grafico-de-linha/grafico-de-linha.component';
-import { GraficoPieComponent } from './dashboard-component/graficos/grafico-pie/grafico-pie.component';
+import { GraficoDoughnutComponent } from './dashboard-component/graficos/grafico-doughnut/grafico-doughnut.component';
 import { PilotoDisplayComponent } from './dashboard-component/piloto-display/piloto-display.component'
 
 
@@ -25,7 +25,7 @@ import { PilotoDisplayComponent } from './dashboard-component/piloto-display/pil
     MenuComponentComponent,
     DashboardComponentComponent,
     GraficoDeLinhaComponent,
-    GraficoPieComponent,
+    GraficoDoughnutComponent,
     PilotoDisplayComponent
   ],
   imports: [
