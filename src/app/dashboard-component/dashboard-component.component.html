@@ -1,8 +1,28 @@
 <div class="dashboard-body">
-  <app-piloto-display
-  [nomeDoPiloto]="nomeDoPiloto"
-  >
-  </app-piloto-display>
+  <nav class="navbar">
+    <button class="navbar-btn" id="menu-btn" (click)="irParaMenu()">Menu</button>
+    <button class="navbar-btn" id="verstappen-btn" (click)="irParaPiloto('verstappen')">Verstappen</button>
+    <button class="navbar-btn" id="leclerc-btn" (click)="irParaPiloto('leclerc')">Leclerc</button>
+    <button class="navbar-btn" id="norris-btn" (click)="irParaPiloto('norris')">Norris</button>
+  </nav>
+
+  <nav id="sidenav">
+    <button class="sidenav-btn" id="close-sidenav-btn">
+      <i class="material-icons" (click)="closeSideNav()">close</i>
+    </button>
+    <div class="sidenav-btns">
+      <button class="sidenav-btn" id="sidenav-menu-btn" (click)="irParaMenu()">Menu</button>
+      <button class="sidenav-btn" id="sidenav-verstappen-btn" (click)="irParaPiloto('verstappen')">Verstappen</button>
+      <button class="sidenav-btn" id="sidenav-leclerc-btn" (click)="irParaPiloto('leclerc')">Leclerc</button>
+      <button class="sidenav-btn" id="sidenav-norris-btn" (click)="irParaPiloto('norris')">Norris</button>
+    </div>
+  </nav>
+
+  <button (click)="openSideNav()" id="open-sidenav-btn">
+    <i class="material-icons">menu</i>
+  </button>
+
+  <app-piloto-display [nomeDoPiloto]="nomeDoPiloto"></app-piloto-display>
 
   <h1>Estatísticas</h1>
 

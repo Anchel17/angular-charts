@@ -49,6 +49,10 @@ export class DashboardService{
   }
 
   private replaceStringNomeDoPiloto(nomeDoPiloto: string): string{
+    if(!this.path.includes("{nomeDoPiloto}")){
+      this.path = '../assets/dados/{nomeDoPiloto}.json';
+    }
+
     return this.path.replace("{nomeDoPiloto}", nomeDoPiloto);
   }
 

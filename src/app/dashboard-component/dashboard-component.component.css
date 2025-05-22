@@ -3,6 +3,126 @@
   background-color: #E5E5E5;
 }
 
+.navbar{
+  width: 100%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  padding-top: 1.5rem;
+  gap: 2rem;
+  z-index: 2;
+}
+
+.navbar-btn{
+  padding: 10px 12px;
+  background-color: rgba(56, 56, 56, 0.6);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: larger;
+}
+
+.navbar-btn:hover{
+  cursor: pointer;
+}
+
+#open-sidenav-btn{
+  position: fixed;
+  background: none;
+  border: none;
+  color: #fff;
+  background-color: #6a6a6a;
+  border-radius: 100%;
+  width: 32px;
+  height: 32px;
+  top: 12px;
+  left: 16px;
+  display: none;
+}
+
+#open-sidenav-btn:hover{
+  cursor: pointer;
+}
+
+#sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  background-color: #E5E5E5;
+  overflow-x: hidden;
+  padding-top: .5rem;
+  transition: 0.5s;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidenav-btns{
+  display: flex;
+  flex-direction: column;
+  padding-top: 1rem;
+}
+
+.sidenav-btn{
+  border: none;
+  background: none;
+  padding: 8px 0;
+}
+
+.sidenav-btn:hover{
+  transition: .2s;
+  color: #fff;
+  cursor: pointer;
+}
+
+#sidenav-menu-btn:hover{
+  background-color: #000;
+}
+
+#sidenav-verstappen-btn:hover{
+  background-color: #223971;
+}
+
+#sidenav-leclerc-btn:hover{
+  background-color: #C3151C;
+}
+
+#sidenav-norris-btn:hover{
+  background-color: #FF8000;
+}
+
+#close-sidenav-btn{
+  align-self: flex-end;
+  padding-right: .5rem;
+}
+
+#close-sidenav-btn:hover{
+  cursor: pointer;
+  color: #000;
+}
+
+#menu-btn{
+  background: none;
+  color: #fff;
+}
+
+#leclerc-btn:hover{
+  background-color: #C3151C;
+  transition: .2s;
+}
+
+#verstappen-btn:hover{
+  background-color: #223971;
+  transition: .2s;
+}
+
+#norris-btn:hover{
+  background-color: #FF8000;
+  transition: .2s;
+}
+
 .seleciona-temporada{
   display: flex;
   justify-content: center;
@@ -69,11 +189,34 @@
   .pie-chart .mat-mdc-card-content{
     min-width: 100%;
   }
+
+  .navbar{
+    display: none;
+  }
+
+  #open-sidenav-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+  }
+}
+
+@media (max-width: 800px){
+  .sidenav-btn{
+    padding: 16px 0;
+    font-size: larger;
+  }
 }
 
 @media (max-width: 550px){
   .dashboard-body h1{
     padding-top: 100px;
+  }
+
+  .sidenav-btn{
+    padding: 12px 0;
+    font-size: medium;
   }
 }
 

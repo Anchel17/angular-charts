@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ChartTypeRegistry, PluginOptionsByType, TooltipCallbacks, TooltipItem, TooltipModel } from 'chart.js';
 import { DashboardService } from './dashboard.service';
 import { MatSelectChange } from '@angular/material/select';
@@ -37,14 +37,14 @@ export class DashboardComponentComponent {
   constructor(
     private activatedRoute: ActivatedRoute,
     private dashboardService: DashboardService,
+    private router: Router
   ){}
 
   ngOnInit(){
     this.activatedRoute.queryParams.subscribe(params => {
       this.nomeDoPiloto = params['nomeDoPiloto'];
+      this.getDadosParaGraficos();
     })
-
-    this.getDadosParaGraficos();
   }
 
   private getDadosParaGraficos(): void{
@@ -190,5 +190,26 @@ export class DashboardComponentComponent {
 
   public getDoughnutChartColors(){
     return colorsPilotos.find(piloto => this.nomeDoPiloto == piloto.nome)!.doughnutColors;
+  }
+
+  public irParaPiloto(piloto: string){
+    this.temporadaSelecionada = '2024';
+    this.router.navigate([], {
+      relativeTo: this.activatedRoute,
+      queryParams: { nomeDoPiloto: piloto },
+      queryParamsHandling: 'merge'
+    });
+  }
+
+  public irParaMenu(){
+    this.router.navigate(['/']);
+  }
+
+  public openSideNav(){
+    document.getElementById('sidenav')!.style.width = '40%';
+  }
+
+  public closeSideNav(){
+    document.getElementById('sidenav')!.style.width = '0';
   }
 }

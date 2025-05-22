@@ -125,13 +125,12 @@
   .img-equipe{
     width: 150px;
     position: absolute;
-    top: 50px;
+    top: 70px;
     right: 5%;
   }
 
   .nome-piloto-container{
     padding-top: 1rem;
-
     gap: 1rem;
   }
 
@@ -176,12 +175,12 @@
 
 @media (max-width: 400px){
   .piloto-container{
-    padding-top: 1.5rem;
+    padding-top: 3rem;
   }
 
   .img-carro{
     width: 150px;
-    top: 50px;
+    top: 75px;
   }
 
   .img-piloto{
@@ -190,7 +189,7 @@
 
   .img-equipe{
     width: 100px;
-    top: 30px;
+    top: 50px;
   }
 
   .nome-piloto-container{
