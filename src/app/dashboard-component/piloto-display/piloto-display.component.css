@@ -50,17 +50,17 @@
 
 
 .leclerc-bg-color{
-  background-image: url('../../../assets/leclerc-card-background.png');
+  background-image: url('../../../assets/leclerc-card-background.webp');
   background-size: cover;
 }
 
 .verstappen-bg-color{
-  background-image: url('../../../assets/verstappen-card-background.png');
+  background-image: url('../../../assets/verstappen-card-background.webp');
   background-size: cover;
 }
 
 .norris-bg-color{
-  background-image: url('../../../assets/norris-display-bg.png');
+  background-image: url('../../../assets/norris-display-bg.webp');
   background-size: cover;
 }
 

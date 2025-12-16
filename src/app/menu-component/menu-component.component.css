@@ -1,5 +1,5 @@
 .menu-container{
-  background: url('../../assets/menu-background.png');
+  background: url('../../assets/menu-background.webp');
   background-position: center center;
   background-size: cover;
 }
@@ -105,15 +105,15 @@
 }
 
 #leclerc-card{
-  background-image: url('../../assets/leclerc-menu.png'), url('../../assets/leclerc-card-background.png');
+  background-image: url('../../assets/leclerc-menu.webp'), url('../../assets/leclerc-card-background.webp');
 }
 
 #verstappen-card{
-  background-image: url('../../assets/verstappen-menu.png'), url('../../assets/verstappen-card-background.png');
+  background-image: url('../../assets/verstappen-menu.webp'), url('../../assets/verstappen-card-background.webp');
 }
 
 #norris-card{
-  background-image: url('../../assets/norris-menu.png'), url('../../assets/norris-card-background.png');
+  background-image: url('../../assets/norris-menu.webp'), url('../../assets/norris-card-background.webp');
 }
 
 @media (max-width: 850px){

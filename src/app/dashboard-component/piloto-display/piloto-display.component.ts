@@ -2,19 +2,19 @@ import { Component, Input } from '@angular/core';
 
 const infoPilotos = [
   {
-    nome: 'leclerc', classe:'leclerc-bg-color', carroImgPath: '../../assets/SF24-GRANDE.png', pilotoImgPath: '../../assets/Leclerc-dashboard.png',
+    nome: 'leclerc', classe:'leclerc-bg-color', carroImgPath: '../../assets/SF24-GRANDE.webp', pilotoImgPath: '../../assets/Leclerc-dashboard.webp',
     backgroundColor: '#fcabad', secondaryBgColorClass: 'leclerc-secondary-bg-color', nomeDisplay: 'Charles',
-    sobrenomeDisplay: 'Leclerc', logoEquipeImgPath: '../../assets/ferrari-logo.png'
+    sobrenomeDisplay: 'Leclerc', logoEquipeImgPath: '../../assets/ferrari-logo.webp'
   },
   {
-    nome: 'verstappen', classe:'verstappen-bg-color', carroImgPath: '../../assets/RB20-GRANDE.png', pilotoImgPath: '../../assets/Verstappen-dashboard.png',
+    nome: 'verstappen', classe:'verstappen-bg-color', carroImgPath: '../../assets/RB20-GRANDE.webp', pilotoImgPath: '../../assets/Verstappen-dashboard.webp',
     backgroundColor: '#7c9ae8', secondaryBgColorClass: 'verstappen-secondary-bg-color', nomeDisplay: 'Max',
-    sobrenomeDisplay: 'Verstappen', logoEquipeImgPath: '../../assets/red-bull-logo.png'
+    sobrenomeDisplay: 'Verstappen', logoEquipeImgPath: '../../assets/red-bull-logo.webp'
   },
   {
-    nome: 'norris', classe:'norris-bg-color', carroImgPath: '../../assets/MCL38-GRANDE.png', pilotoImgPath: '../../assets/Norris-dashboard.png',
+    nome: 'norris', classe:'norris-bg-color', carroImgPath: '../../assets/MCL38-GRANDE.webp', pilotoImgPath: '../../assets/Norris-dashboard.webp',
     backgroundColor: '#f1c3a0', secondaryBgColorClass: 'norris-secondary-bg-color', nomeDisplay: 'Lando',
-    sobrenomeDisplay: 'Norris', logoEquipeImgPath: '../../assets/mclaren-logo.png'
+    sobrenomeDisplay: 'Norris', logoEquipeImgPath: '../../assets/mclaren-logo.webp'
   }
 ];
 
